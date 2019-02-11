@@ -1,0 +1,50 @@
+<resources>
+    <string name="app_name">Micro Parcel</string>
+    <string name="sign_in">SIGN IN</string>
+    <string name="micro_parcel_logo">micro parcel logo</string>
+    <string name="login">Login</string>
+    <string name="enter_code">Enter Code</string>
+    <string name="mobile_number">Mobile Number</string>
+    <string name="verify_code">Verify Code</string>
+    <string name="select_service_type">Select Service Type</string>
+    <string name="logistics_service">Logistics Service</string>
+    <string name="country_code">+91</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="create_order">Orders</string>
+    <string name="your_orders">History</string>
+    <string name="more">Settings</string>
+    <string name="disp_background">disp background</string>
+    <string name="textview">TextView</string>
+    <string name="select_pickoff_address">Select Pickoff Address</string>
+    <string name="v_bike">v_bike</string>
+    <string name="v_truck">v_truck</string>
+    <string name="select_dropoff_address">Select Dropoff Address</string>
+    <string name="xs">XS</string>
+    <string name="xm">XM</string>
+    <string name="xl">XL</string>
+    <string name="x2l">X2L</string>
+    <string name="upto_30kgs">Upto 30kgs</string>
+    <string name="proceed">Proceed Next</string>
+    <string name="open_body">Open Body</string>
+    <string name="container_body">Container Body</string>
+    <string name="l_15_w_15_h_15">L = 15, W = 15, H = 15</string>
+    <string name="desc_xs">Best for urgent deliveries of documents, parcels like books, gifts, cakes, small electronics and other stuffs upto 30 kg of weight.</string>
+    .
+    <string name="v_iv">v_iv</string>
+    <string name="goods_to_ship">Goods to ship</string>
+    <string name="loading">Loading</string>
+    <string name="unloading">Unloading</string>
+    <string name="_500">₹500</string>
+    <string name="estimate_fare">Proceed Next</string>
+    <string name="estimated_fare">Estimated Fare</string>
+    <string name="goods_approx_weight">Goods approx weight</string>
+    <string name="insurance">Insurance</string>
+    <string name="proof_of_delivery_physical">Proof of Delivery (Physical)</string>
+    <string name="delivery_instructions_cod_amount">Delivery Instructions / COD Amount</string>
+    <string name="any_delivery_instructions">Any Delivery Instructions</string>
+    <string name="any_cod_amount">Any COD Amount</string>
+    <string name="submit">Submit</string>
+
+</resources>

@@ -1,0 +1,326 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/orderLayout"
+    tools:context=".CreateOrderFragment">
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+
+        android:layout_height="match_parent">
+
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/constraintLayout"
+            android:layout_width="315dp"
+            android:layout_height="92dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:elevation="15dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:targetApi="lollipop">
+
+            <TextView
+                android:id="@+id/loc_pickoff_TextView"
+                android:layout_width="315dp"
+                android:layout_height="45dp"
+                android:background="@drawable/loc_tv_to"
+                android:fontFamily="@font/numans"
+                android:gravity="center"
+                android:text="@string/select_pickoff_address"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/loc_dropoff_TextView"
+                android:layout_width="315dp"
+                android:layout_height="45dp"
+                android:background="@drawable/loc_tv_from"
+                android:fontFamily="@font/numans"
+                android:gravity="center"
+                android:text="@string/select_dropoff_address"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+        </android.support.constraint.ConstraintLayout>
+
+        <LinearLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="316dp"
+            android:layout_height="85dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:padding="5dp"
+            android:weightSum="4"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/constraintLayout">
+
+            <LinearLayout
+                android:id="@+id/v_xs_LinearLayout"
+                android:layout_width="75dp"
+                android:layout_height="75dp"
+                android:layout_margin="1dp"
+                android:background="@drawable/button_background"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:weightSum="1">
+
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:contentDescription="@string/v_bike"
+                    app:srcCompat="@drawable/ic_motorcycle" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/numans"
+                    android:gravity="center"
+                    android:text="@string/xs"
+                    android:textSize="10sp"
+                    tools:ignore="SmallSp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/v_xm_LinearLayout"
+                android:layout_width="75dp"
+                android:layout_height="75dp"
+                android:layout_margin="1dp"
+                android:gravity="center"
+                android:background="@drawable/edittext_background"
+                android:orientation="vertical"
+                android:weightSum="1">
+
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:contentDescription="@string/v_truck"
+                    app:srcCompat="@drawable/ic_truck" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/numans"
+                    android:gravity="center"
+                    android:text="@string/xm"
+                    android:textSize="10sp"
+                    tools:ignore="SmallSp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/v_xl_LinearLayout"
+                android:layout_width="75dp"
+                android:layout_height="75dp"
+                android:layout_margin="1dp"
+                android:gravity="center"
+                android:background="@drawable/edittext_background"
+                android:orientation="vertical"
+                android:weightSum="1">
+
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:contentDescription="@string/v_truck"
+                    app:srcCompat="@drawable/ic_truck" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/numans"
+                    android:gravity="center"
+                    android:text="@string/xl"
+                    android:textSize="10sp"
+                    tools:ignore="SmallSp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/v_x2l_LinearLayout"
+                android:layout_width="75dp"
+                android:layout_height="75dp"
+                android:layout_margin="1dp"
+                android:gravity="center"
+                android:background="@drawable/edittext_background"
+                android:orientation="vertical"
+                android:weightSum="1">
+
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:contentDescription="@string/v_truck"
+                    app:srcCompat="@drawable/ic_truck" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/numans"
+                    android:gravity="center"
+                    android:text="@string/x2l"
+                    android:textSize="10sp"
+                    tools:ignore="SmallSp" />
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/v_ImageView"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:contentDescription="@string/v_iv"
+            android:padding="5dp"
+            android:scaleType="centerCrop"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+            app:srcCompat="@drawable/ic_motorcycle" />
+
+        <TextView
+            android:id="@+id/v_cap_TextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:fontFamily="@font/numans"
+            android:text="@string/upto_30kgs"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/v_name_TextView" />
+
+        <Button
+            android:id="@+id/proceed_Button"
+            android:layout_width="314dp"
+            android:layout_height="55dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginBottom="8dp"
+            android:background="@drawable/btn_to_border"
+            android:text="@string/proceed"
+            android:fontFamily="@font/numans"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <LinearLayout
+            android:id="@+id/linearLayout2"
+            android:layout_width="315dp"
+            android:layout_height="45dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginBottom="2dp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:weightSum="2"
+            app:layout_constraintBottom_toTopOf="@+id/proceed_Button"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <TextView
+                android:id="@+id/v_ob_TextView"
+                android:layout_width="157dp"
+                android:layout_height="45dp"
+                android:layout_margin="1dp"
+                android:layout_weight="1"
+                android:textSize="12sp"
+                android:fontFamily="@font/numans"
+                android:background="@drawable/btn_left"
+                android:gravity="center"
+                android:text="@string/open_body" />
+
+            <TextView
+                android:id="@+id/v_cb_TextView"
+                android:layout_width="157dp"
+                android:layout_height="45dp"
+                android:layout_margin="1dp"
+                android:layout_weight="1"
+                android:fontFamily="@font/numans"
+                android:textSize="12sp"
+                android:background="@drawable/btn_nogravity_right"
+                android:gravity="center"
+                android:text="@string/container_body" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/v_dim_TextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:text="@string/l_15_w_15_h_15"
+            android:textSize="12sp"
+            android:fontFamily="@font/numans"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/v_cap_TextView" />
+
+        <TextView
+            android:id="@+id/v_desc_TextView"
+            android:layout_width="315dp"
+            android:layout_height="45dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:gravity="center"
+            android:fontFamily="@font/numans"
+            android:text="@string/desc_xs"
+            android:textSize="10sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/v_dim_TextView"
+            tools:ignore="SmallSp" />
+
+        <TextView
+            android:id="@+id/v_name_TextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/numans"
+            android:text="@string/xs"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="@+id/v_ImageView"
+            app:layout_constraintStart_toStartOf="@+id/v_ImageView"
+            app:layout_constraintTop_toBottomOf="@+id/v_ImageView" />
+
+        <ProgressBar
+            android:id="@+id/loc_progressBar"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:indeterminate="true"
+            app:layout_constraintEnd_toEndOf="@+id/constraintLayout"
+            app:layout_constraintStart_toStartOf="@+id/constraintLayout"
+            app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
+
+    </android.support.constraint.ConstraintLayout>
+</FrameLayout>

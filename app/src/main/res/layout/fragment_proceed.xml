@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ProceedFragment">
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/goods_to_ship_TextView"
+            android:layout_width="315dp"
+            android:layout_height="45dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:background="@drawable/loc_tv_to"
+            android:fontFamily="@font/numans"
+            android:gravity="center"
+            android:text="@string/goods_to_ship"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/goods_weight_EditText"
+            android:layout_width="315dp"
+            android:layout_height="45dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:background="@drawable/loc_tv_from"
+            android:ems="10"
+            android:gravity="center"
+            android:fontFamily="@font/numans"
+            android:hint="@string/goods_approx_weight"
+            android:inputType="numberDecimal"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/goods_to_ship_TextView"
+            android:importantForAutofill="no" tools:targetApi="o"/>
+
+        <TextView
+            android:id="@+id/delivery_inst_or_cod_amt_TextView"
+            android:layout_width="315dp"
+            android:layout_height="45dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:background="@drawable/loc_tv_from"
+            android:fontFamily="@font/numans"
+            android:gravity="center"
+            android:text="@string/delivery_instructions_cod_amount"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
+
+        <LinearLayout
+            android:id="@+id/linearLayout2"
+            android:layout_width="315dp"
+            android:layout_height="45dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginBottom="2dp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:weightSum="2"
+
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/goods_weight_EditText">
+
+            <TextView
+                android:id="@+id/opt_loading_TextView"
+                android:layout_width="157dp"
+                android:layout_height="45dp"
+                android:layout_margin="1dp"
+                android:layout_weight="1"
+                android:textSize="12sp"
+                android:background="@drawable/btn_nogravity_left"
+                android:fontFamily="@font/numans"
+                android:gravity="center"
+                android:text="@string/loading" />
+
+            <TextView
+                android:id="@+id/opt_unloading_TextView"
+                android:layout_width="157dp"
+                android:layout_height="45dp"
+                android:layout_margin="1dp"
+                android:layout_weight="1"
+                android:textSize="12sp"
+                android:background="@drawable/btn_nogravity_right"
+                android:fontFamily="@font/numans"
+                android:gravity="center"
+                android:text="@string/unloading" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/opt_physical_pod_TextView"
+            android:layout_width="315dp"
+            android:layout_height="45dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:background="@drawable/loc_tv_to"
+            android:fontFamily="@font/numans"
+            android:gravity="center"
+            android:text="@string/proof_of_delivery_physical"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/delivery_inst_or_cod_amt_TextView" />
+
+        <TextView
+            android:id="@+id/opt_insurance_TextView"
+            android:layout_width="315dp"
+            android:layout_height="45dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:background="@drawable/loc_tv_from"
+            android:fontFamily="@font/numans"
+            android:gravity="center"
+            android:text="@string/insurance"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/opt_physical_pod_TextView" />
+
+        <TextView
+            android:id="@+id/est_fare_TextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:fontFamily="@font/numans"
+            android:text="loading..."
+            android:textColor="@color/colorGreen"
+            android:textSize="55sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView12" />
+
+        <Button
+            android:id="@+id/est_fare_book_now_Button"
+            android:layout_width="315dp"
+            android:layout_height="55dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginBottom="8dp"
+            android:background="@drawable/loc_tv_from_btn"
+            android:fontFamily="@font/numans"
+            android:text="@string/estimate_fare"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/textView12"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="@string/estimated_fare"
+            app:layout_constraintEnd_toEndOf="@+id/est_fare_TextView"
+            app:layout_constraintStart_toStartOf="@+id/est_fare_TextView"
+            app:layout_constraintTop_toBottomOf="@+id/opt_insurance_TextView" />
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            style="@android:style/Widget.Holo.Light.ProgressBar.Horizontal"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:indeterminate="true"
+            android:indeterminateTint="@color/colorPrimary"
+            app:layout_constraintBottom_toTopOf="@+id/est_fare_book_now_Button"
+            app:layout_constraintEnd_toEndOf="@+id/est_fare_book_now_Button"
+            app:layout_constraintStart_toStartOf="@+id/est_fare_book_now_Button" tools:targetApi="lollipop"/>
+
+    </android.support.constraint.ConstraintLayout>
+</FrameLayout>

@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/loginLayout"
+    tools:context=".LoginActivity">
+
+
+    <ImageView
+        android:id="@+id/mp_logo_ImageView"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:contentDescription="@string/micro_parcel_logo"
+        android:scaleType="centerInside"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/microparcel_logo" />
+
+    <EditText
+        android:id="@+id/cust_mobile_number_EditText"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginLeft="24dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginRight="24dp"
+        android:autofillHints=""
+        android:background="@drawable/edittext_background"
+        android:elevation="15dp"
+        android:ems="10"
+        android:fontFamily="@font/numans"
+        android:gravity="center"
+        android:hint="@string/mobile_number"
+        android:inputType="phone"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/mp_logo_ImageView"
+        tools:targetApi="o" />
+
+    <EditText
+        android:id="@+id/cust_mobile_code_EditText"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:autofillHints=""
+        android:background="@drawable/edittext_background"
+        android:elevation="15dp"
+        android:ems="10"
+        android:fontFamily="@font/numans"
+        android:gravity="center"
+        android:hint="@string/enter_code"
+        android:inputType="number"
+        android:textSize="20sp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@+id/cust_mobile_number_EditText"
+        app:layout_constraintEnd_toEndOf="@+id/cust_mobile_number_EditText"
+        app:layout_constraintStart_toStartOf="@+id/cust_mobile_number_EditText"
+        app:layout_constraintTop_toTopOf="@+id/cust_mobile_number_EditText"
+        tools:targetApi="o" />
+
+    <Button
+        android:id="@+id/send_otp_Button"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:background="@drawable/button_background"
+        android:elevation="15dp"
+        android:fontFamily="@font/numans"
+        android:text="@string/login"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/verify_otp_Button"
+        app:layout_constraintEnd_toEndOf="@+id/verify_otp_Button"
+        app:layout_constraintStart_toStartOf="@+id/verify_otp_Button"
+        app:layout_constraintTop_toTopOf="@+id/verify_otp_Button"
+        tools:targetApi="lollipop" />
+
+    <Button
+        android:id="@+id/verify_otp_Button"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginLeft="24dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginRight="24dp"
+        android:background="@drawable/button_background"
+        android:elevation="15dp"
+        android:fontFamily="@font/numans"
+        android:text="@string/verify_code"
+        android:textSize="20sp"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cust_mobile_code_EditText"
+        tools:targetApi="lollipop" />
+
+    <TextView
+        android:id="@+id/resend_otp_TextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:fontFamily="@font/numans"
+        android:text="resend otp"
+        android:textSize="20sp"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/verify_otp_Button" />
+
+    <TextView
+        android:id="@+id/otp_timer_TextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:fontFamily="@font/numans"
+        android:text="00 sec"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/cust_mobile_code_EditText"
+        app:layout_constraintEnd_toEndOf="@+id/cust_mobile_code_EditText" />
+
+</android.support.constraint.ConstraintLayout>
