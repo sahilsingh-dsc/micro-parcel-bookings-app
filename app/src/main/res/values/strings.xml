@@ -46,5 +46,6 @@
     <string name="any_delivery_instructions">Any Delivery Instructions</string>
     <string name="any_cod_amount">Any COD Amount</string>
     <string name="submit">Submit</string>
+    <string name="loading_lod">loading...</string>
 
 </resources>

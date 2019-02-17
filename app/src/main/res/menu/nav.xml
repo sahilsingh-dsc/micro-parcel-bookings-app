@@ -6,12 +6,4 @@
         android:id="@+id/create_order_menu_item"
         android:icon="@drawable/ic_hand_truck_menu"
         android:title="@string/create_order" />
-    <item
-        android:id="@+id/your_orders_menu_item"
-        android:icon="@drawable/ic_return_to_the_past_menu"
-        android:title="@string/your_orders" />
-    <item
-        android:id="@+id/more_menu_item"
-        android:icon="@drawable/ic_help_menu"
-        android:title="@string/more" />
 </menu>

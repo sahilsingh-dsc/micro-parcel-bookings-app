@@ -20,10 +20,13 @@ import android.widget.Toast;
 
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlacePicker;
+import com.google.firebase.database.DatabaseReference;
+
 import java.util.Objects;
 import static android.app.Activity.RESULT_OK;
 public class CreateOrderFragment extends Fragment {
     View view;
+
     private Button proceed_Button;
     private LinearLayout v_xs_LinearLayout, v_xm_LinearLayout, v_xl_LinearLayout, v_x2l_LinearLayout;
     private TextView v_name_TextView, v_cap_TextView, v_dim_TextView, v_desc_TextView, v_ob_TextView, v_cb_TextView;
@@ -31,7 +34,7 @@ public class CreateOrderFragment extends Fragment {
     private ImageView v_ImageView;
     private Animation aniSlide;
     private ProgressBar loc_progressBar;
-    private String vehicle_type_switch;
+    private String vehicle_type_switch = "0";
     private Integer location_switch, vehicle_switch;
     private final int REQUEST_CODE_PLACEPICKER = 1;
     private String pickup, drop;
@@ -60,6 +63,9 @@ public class CreateOrderFragment extends Fragment {
         v_desc_TextView = view.findViewById(R.id.v_desc_TextView);
         v_ob_TextView = view.findViewById(R.id.v_ob_TextView);
         v_cb_TextView = view.findViewById(R.id.v_cb_TextView);
+
+        v_cb_TextView.setBackground(getResources().getDrawable(R.drawable.btn_nogravity_right));
+        v_ob_TextView.setBackground(getResources().getDrawable(R.drawable.btn_nogravity_left));
 
         loc_pickoff_TextView = view.findViewById(R.id.loc_pickoff_TextView);
         loc_pickoff_TextView.setOnClickListener(new View.OnClickListener() {
@@ -143,10 +149,12 @@ public class CreateOrderFragment extends Fragment {
                     return;
                 }
 
-                if(dropoff_add.equals("Select Pickoff Address") || dropoff_add.equals("")){
-                    Toast.makeText(getContext(), "Select dropoff location", Toast.LENGTH_SHORT).show();
+                if(dropoff_add.equals("Select Dropoff Address") || dropoff_add.equals("")){
+                    Toast.makeText(getContext(), "Select dropoff location.", Toast.LENGTH_SHORT).show();
                     return;
                 }
+
+
 
                 ProceedFragment pfData = new ProceedFragment ();
                 Bundle args = new Bundle();

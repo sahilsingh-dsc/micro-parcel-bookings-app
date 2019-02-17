@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
 
+
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
 
     @Override
@@ -15,12 +16,8 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         setContentView(R.layout.activity_main);
 
         loadFragment(new CreateOrderFragment());
-
         BottomNavigationView bottom_nav_Bar = findViewById(R.id.bottom_nav_Bar);
         bottom_nav_Bar.setOnNavigationItemSelectedListener(MainActivity.this);
-
-
-
 
     }
 
@@ -36,12 +33,6 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                 fragment = new CreateOrderFragment();
                 break;
 
-            case R.id.your_orders_menu_item :
-                fragment = new YourOrdersFragment();
-                break;
-
-            case R.id.more_menu_item :
-                fragment = new SettingsFragment();
         }
 
         return loadFragment(fragment);

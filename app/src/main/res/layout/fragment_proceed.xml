@@ -19,7 +19,7 @@
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginRight="8dp"
-            android:background="@drawable/loc_tv_to"
+            android:background="@drawable/edittext_background"
             android:fontFamily="@font/numans"
             android:gravity="center"
             android:text="@string/goods_to_ship"
@@ -27,45 +27,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
-
-        <EditText
-            android:id="@+id/goods_weight_EditText"
-            android:layout_width="315dp"
-            android:layout_height="45dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginTop="2dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginRight="8dp"
-            android:background="@drawable/loc_tv_from"
-            android:ems="10"
-            android:gravity="center"
-            android:fontFamily="@font/numans"
-            android:hint="@string/goods_approx_weight"
-            android:inputType="numberDecimal"
-            android:textSize="12sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/goods_to_ship_TextView"
-            android:importantForAutofill="no" tools:targetApi="o"/>
-
-        <TextView
-            android:id="@+id/delivery_inst_or_cod_amt_TextView"
-            android:layout_width="315dp"
-            android:layout_height="45dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginTop="2dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginRight="8dp"
-            android:background="@drawable/loc_tv_from"
-            android:fontFamily="@font/numans"
-            android:gravity="center"
-            android:text="@string/delivery_instructions_cod_amount"
-            android:textSize="12sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
 
         <LinearLayout
             android:id="@+id/linearLayout2"
@@ -76,38 +37,37 @@
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginRight="8dp"
-            android:layout_marginBottom="2dp"
             android:gravity="center"
             android:orientation="horizontal"
-            android:weightSum="2"
 
+            android:weightSum="2"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/goods_weight_EditText">
+            app:layout_constraintTop_toBottomOf="@+id/goods_to_ship_TextView">
 
             <TextView
                 android:id="@+id/opt_loading_TextView"
-                android:layout_width="157dp"
+                android:layout_width="155dp"
                 android:layout_height="45dp"
                 android:layout_margin="1dp"
                 android:layout_weight="1"
-                android:textSize="12sp"
-                android:background="@drawable/btn_nogravity_left"
+                android:background="@drawable/edittext_background"
                 android:fontFamily="@font/numans"
                 android:gravity="center"
-                android:text="@string/loading" />
+                android:text="@string/loading"
+                android:textSize="12sp" />
 
             <TextView
                 android:id="@+id/opt_unloading_TextView"
-                android:layout_width="157dp"
+                android:layout_width="155dp"
                 android:layout_height="45dp"
                 android:layout_margin="1dp"
                 android:layout_weight="1"
-                android:textSize="12sp"
-                android:background="@drawable/btn_nogravity_right"
+                android:background="@drawable/edittext_background"
                 android:fontFamily="@font/numans"
                 android:gravity="center"
-                android:text="@string/unloading" />
+                android:text="@string/unloading"
+                android:textSize="12sp" />
         </LinearLayout>
 
         <TextView
@@ -119,14 +79,14 @@
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginRight="8dp"
-            android:background="@drawable/loc_tv_to"
+            android:background="@drawable/edittext_background"
             android:fontFamily="@font/numans"
             android:gravity="center"
             android:text="@string/proof_of_delivery_physical"
             android:textSize="12sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/delivery_inst_or_cod_amt_TextView" />
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
 
         <TextView
             android:id="@+id/opt_insurance_TextView"
@@ -134,10 +94,10 @@
             android:layout_height="45dp"
             android:layout_marginStart="8dp"
             android:layout_marginLeft="8dp"
-            android:layout_marginTop="2dp"
+            android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginRight="8dp"
-            android:background="@drawable/loc_tv_from"
+            android:background="@drawable/edittext_background"
             android:fontFamily="@font/numans"
             android:gravity="center"
             android:text="@string/insurance"
@@ -155,7 +115,6 @@
             android:layout_marginEnd="8dp"
             android:layout_marginRight="8dp"
             android:fontFamily="@font/numans"
-            android:text="loading..."
             android:textColor="@color/colorGreen"
             android:textSize="55sp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -170,8 +129,8 @@
             android:layout_marginLeft="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginRight="8dp"
-            android:layout_marginBottom="8dp"
-            android:background="@drawable/loc_tv_from_btn"
+            android:layout_marginBottom="32dp"
+            android:background="@drawable/button_background"
             android:fontFamily="@font/numans"
             android:text="@string/estimate_fare"
             android:textSize="20sp"
@@ -188,17 +147,6 @@
             app:layout_constraintEnd_toEndOf="@+id/est_fare_TextView"
             app:layout_constraintStart_toStartOf="@+id/est_fare_TextView"
             app:layout_constraintTop_toBottomOf="@+id/opt_insurance_TextView" />
-
-        <ProgressBar
-            android:id="@+id/progressBar"
-            style="@android:style/Widget.Holo.Light.ProgressBar.Horizontal"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:indeterminate="true"
-            android:indeterminateTint="@color/colorPrimary"
-            app:layout_constraintBottom_toTopOf="@+id/est_fare_book_now_Button"
-            app:layout_constraintEnd_toEndOf="@+id/est_fare_book_now_Button"
-            app:layout_constraintStart_toStartOf="@+id/est_fare_book_now_Button" tools:targetApi="lollipop"/>
 
     </android.support.constraint.ConstraintLayout>
 </FrameLayout>

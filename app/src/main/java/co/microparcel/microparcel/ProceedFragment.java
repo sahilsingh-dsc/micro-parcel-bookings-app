@@ -17,17 +17,29 @@ import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
 
+import dmax.dialog.SpotsDialog;
+
 public class ProceedFragment extends Fragment {
 
     View view;
+
+    private DatabaseReference leadRef;
+
     private String pickoff, dropoff, vehicle, vehicle_type;
 
     private String DistanceResult, DurationResult;
@@ -38,13 +50,13 @@ public class ProceedFragment extends Fragment {
 
     private TextView est_fare_TextView, goods_to_ship_TextView, opt_loading_TextView, opt_unloading_TextView, delivery_inst_or_cod_amt_TextView, opt_physical_pod_TextView, opt_insurance_TextView;
 
-    private ProgressBar progressBar;
-
-    private double km, carrierfare_round;
+    private double km, carrierfare_round, est_fare;
 
     private EditText goods_weight_EditText;
 
     private int loading_switch = 0, unloading_switch = 0, pod_switch = 0, insurance_switch = 0;
+
+    private android.app.AlertDialog loadingDialog;
 
     public ProceedFragment() {
         // Required empty public constructor
@@ -64,18 +76,20 @@ public class ProceedFragment extends Fragment {
         vehicle = String.valueOf(getArguments().getInt("vehicle"));
         vehicle_type = getArguments().getString("vehicle_type");
 
-        progressBar = view.findViewById(R.id.progressBar);
-        progressBar.setVisibility(View.INVISIBLE);
 
+
+        callFareLoading();
 
         SearchDistanceCommand(view);
+
+
 
         est_fare_TextView = view.findViewById(R.id.est_fare_TextView);
         est_fare_book_now_Button = view.findViewById(R.id.est_fare_book_now_Button);
         est_fare_book_now_Button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SearchDistanceCommand(v);
+                callLoading();
             }
         });
 
@@ -100,15 +114,15 @@ public class ProceedFragment extends Fragment {
                     opt_loading_TextView.setEnabled(false);
                     opt_unloading_TextView.setEnabled(false);
                     Toast.makeText(getContext(), "No loading Service is allowed in Bike.", Toast.LENGTH_LONG).show();
-                    opt_unloading_TextView.setBackground(getResources().getDrawable(R.drawable.btn_nogravity_right));
-                    opt_loading_TextView.setBackground(getResources().getDrawable(R.drawable.btn_nogravity_left));
+                    opt_unloading_TextView.setBackground(getResources().getDrawable(R.drawable.edittext_background));
+                    opt_loading_TextView.setBackground(getResources().getDrawable(R.drawable.edittext_background));
                 } else {
 
                     if (loading_switch == 0) {
-                        opt_loading_TextView.setBackground(getResources().getDrawable(R.drawable.btn_left));
+                        opt_loading_TextView.setBackground(getResources().getDrawable(R.drawable.button_background));
                         loading_switch = 1;
                     } else {
-                        opt_loading_TextView.setBackground(getResources().getDrawable(R.drawable.btn_nogravity_left));
+                        opt_loading_TextView.setBackground(getResources().getDrawable(R.drawable.edittext_background));
                         loading_switch = 0;
 
                     }
@@ -128,15 +142,15 @@ public class ProceedFragment extends Fragment {
                     opt_loading_TextView.setEnabled(false);
                     opt_unloading_TextView.setEnabled(false);
                     Toast.makeText(getContext(), "No Unloading Service is allowed in Bike.", Toast.LENGTH_LONG).show();
-                    opt_unloading_TextView.setBackground(getResources().getDrawable(R.drawable.btn_nogravity_right));
-                    opt_loading_TextView.setBackground(getResources().getDrawable(R.drawable.btn_nogravity_left));
+                    opt_unloading_TextView.setBackground(getResources().getDrawable(R.drawable.edittext_background));
+                    opt_loading_TextView.setBackground(getResources().getDrawable(R.drawable.edittext_background));
                 } else {
 
                     if (unloading_switch == 0) {
-                        opt_unloading_TextView.setBackground(getResources().getDrawable(R.drawable.btn_right));
+                        opt_unloading_TextView.setBackground(getResources().getDrawable(R.drawable.button_background));
                         unloading_switch = 1;
                     } else {
-                        opt_unloading_TextView.setBackground(getResources().getDrawable(R.drawable.btn_nogravity_right));
+                        opt_unloading_TextView.setBackground(getResources().getDrawable(R.drawable.edittext_background));
                         unloading_switch = 0;
                     }
 
@@ -147,39 +161,15 @@ public class ProceedFragment extends Fragment {
             }
         });
 
-
-        delivery_inst_or_cod_amt_TextView = view.findViewById(R.id.delivery_inst_or_cod_amt_TextView);
-        delivery_inst_or_cod_amt_TextView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                LayoutInflater layoutInflater = LayoutInflater.from(getContext());
-                View mView = layoutInflater.inflate(R.layout.del_ins_cod_amt_alert, null);
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-                    del = new AlertDialog.Builder(Objects.requireNonNull(getContext()));
-                }
-                del.setView(mView);
-                Button submit_Button = mView.findViewById(R.id.submit_Button);
-                final AlertDialog dialog = del.create();
-                dialog.show();
-                submit_Button.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        dialog.dismiss();
-                    }
-                });
-            }
-        });
-
-
         opt_physical_pod_TextView = view.findViewById(R.id.opt_physical_pod_TextView);
         opt_physical_pod_TextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (pod_switch == 0){
-                    opt_physical_pod_TextView.setBackground(getResources().getDrawable(R.drawable.btn_from_border));
+                    opt_physical_pod_TextView.setBackground(getResources().getDrawable(R.drawable.button_background));
                     pod_switch = 1;
                 }else {
-                    opt_physical_pod_TextView.setBackground(getResources().getDrawable(R.drawable.loc_tv_to));
+                    opt_physical_pod_TextView.setBackground(getResources().getDrawable(R.drawable.edittext_background));
                     pod_switch = 0;
                 }
                 Toast.makeText(getContext(), "POD : "+pod_switch, Toast.LENGTH_SHORT).show();
@@ -207,9 +197,6 @@ public class ProceedFragment extends Fragment {
 
             }
         });
-
-
-        goods_weight_EditText = view.findViewById(R.id.goods_weight_EditText);
 
 
 
@@ -249,7 +236,6 @@ public class ProceedFragment extends Fragment {
 
         @Override
         protected void onPreExecute() {
-            progressBar.setVisibility(View.VISIBLE);
             super.onPreExecute();
         }
 
@@ -297,12 +283,12 @@ public class ProceedFragment extends Fragment {
                 ResultErrorHandle.show();
             }
 
-             progressBar.setVisibility(View.INVISIBLE);
-
-            if (DistanceResult.indexOf("km") != -1) {
+                      if (DistanceResult.indexOf("km") != -1) {
                 DistanceResult = DistanceResult.replaceAll("[^\\d.]", "");
                 km = Double.parseDouble(DistanceResult);
                 callFare();
+                callLead();
+                loadingDialog.dismiss();
 
             } else {
                 Toast.makeText(getContext(), "Can't Serve...", Toast.LENGTH_SHORT).show();
@@ -393,33 +379,75 @@ public class ProceedFragment extends Fragment {
         if (vehicle.equals("1")) {
             float carrierfare = (float) (((km-1.0)*7)+30);
             double carrierfare_round = Math.round(carrierfare);
-            double est_fare = carrierfare_round + loading_charge + unloading_charge + pod_charge + insurance_charge;
+            est_fare = carrierfare_round + loading_charge + unloading_charge + pod_charge + insurance_charge;
             est_fare_TextView.setText(String.format("₹%s", est_fare));
         }
 
         if (vehicle.equals("2")) {
             float carrierfare = (float) ((km-3.0)*22)+180;
             double carrierfare_round = Math.round(carrierfare);
-            double est_fare = carrierfare_round + loading_charge + unloading_charge + pod_charge + insurance_charge;
+            est_fare = carrierfare_round + loading_charge + unloading_charge + pod_charge + insurance_charge;
             est_fare_TextView.setText(String.format("₹%s", est_fare));
         }
 
         if (vehicle.equals("3")) {
             float carrierfare = (float) ((km-3.0)*29)+250;
             double carrierfare_round = Math.round(carrierfare);
-            double est_fare = carrierfare_round + loading_charge + unloading_charge + pod_charge + insurance_charge;
+            est_fare = carrierfare_round + loading_charge + unloading_charge + pod_charge + insurance_charge;
             est_fare_TextView.setText(String.format("₹%s", est_fare));
         }
 
         if (vehicle.equals("4")) {
             float carrierfare = (float) ((km-3.0)*34)+300;
             double carrierfare_round = Math.round(carrierfare);
-            double est_fare = carrierfare_round + loading_charge + unloading_charge + pod_charge + insurance_charge;
+            est_fare = carrierfare_round + loading_charge + unloading_charge + pod_charge + insurance_charge;
             est_fare_TextView.setText(String.format("₹%s", est_fare));
         }
+
+
+
+    }
+
+    private void callLead(){
+        leadRef = FirebaseDatabase.getInstance().getReference("BOOKINGS_DATA");
+        String PICKOFF_LOCATION = pickoff;
+        String DROPOFF_LOCATION = dropoff;
+        String VEHICLE = vehicle;
+        String VEHICLE_TYPE = vehicle_type;
+        String BASE_FARE = String.valueOf(est_fare);
+        String KILOMETER = DistanceResult;
+
+
+        FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        assert firebaseUser != null;
+        String username = firebaseUser.getUid();
+
+        SimpleDateFormat s = new SimpleDateFormat("ddMMyyyyhhmmss");
+        String format = s.format(new Date());
+
+        LeadData leadData = new LeadData(PICKOFF_LOCATION, DROPOFF_LOCATION, VEHICLE, VEHICLE_TYPE, BASE_FARE, KILOMETER, loading_switch, unloading_switch, pod_switch);
+
+        leadRef.child("LEADS_DATA").child(username).setValue(leadData);
+
+        Toast.makeText(getContext(), "New Lead", Toast.LENGTH_SHORT).show();
     }
 
 
+    private void callLoading(){
+        loadingDialog = new SpotsDialog.Builder().setContext(getContext())
+                .setTheme(R.style.loading)
+                .setMessage("Finding Vehicle")
+                .build();
+        loadingDialog.show();
+    }
+
+    private void callFareLoading(){
+        loadingDialog = new SpotsDialog.Builder().setContext(getContext())
+                .setTheme(R.style.loading)
+                .setMessage("Calculating Fare")
+                .build();
+        loadingDialog.show();
+    }
 
 
 
