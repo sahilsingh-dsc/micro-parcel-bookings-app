@@ -37,7 +37,7 @@
     <string name="loading">Loading</string>
     <string name="unloading">Unloading</string>
     <string name="_500">₹500</string>
-    <string name="estimate_fare">Proceed Next</string>
+    <string name="estimate_fare">Request Vehicle</string>
     <string name="estimated_fare">Estimated Fare</string>
     <string name="goods_approx_weight">Goods approx weight</string>
     <string name="insurance">Insurance</string>
@@ -46,6 +46,34 @@
     <string name="any_delivery_instructions">Any Delivery Instructions</string>
     <string name="any_cod_amount">Any COD Amount</string>
     <string name="submit">Submit</string>
-    <string name="loading_lod">loading...</string>
+    <string name="loading_lod">loading…</string>
+    <string name="vehicle_im">vehicle_im</string>
+    <string name="hey_your_vehicle_is_on_way">Hey, your request has been accepted.</string>
+    <string name="eta_02_59_sec">ETA 02:59 sec</string>
+    <string name="title_activity_track_driver">Map</string>
+    <string name="xs_veh">XS</string>
+    <string name="del_bike">Delivery Bikes</string>
+    <string name="xm_veh">XM</string>
+    <string name="ape">Piaggio Ape, Vikram Loading, etc.</string>
+    <string name="_15">Upto 15 Kgs</string>
+    <string name="_l40">L = 40 Inches, W = 40 Inches, H = 40 Inches</string>
+    <string name="bike_desc">Best for urgent deliveries of documents, parcels like books, gifts, cakes, small electronics and other stuffs upto 30 kg of weight.</string>
+    <string name="up_500">Upto 500 Kgs</string>
+    <string name="l6">L = 6 Feet, W = 4.5 Feet, H = 5.5 Feet</string>
+    <string name="xl_veh">XL</string>
+    <string name="ace">Tata Ace, M Geeto, etc.</string>
+    <string name="up750">Upto 750 Kgs</string>
+    <string name="l7">L = 7 Feet, W = 5 Feet, H = 6 Feet</string>
+    <string name="x2l_veh">X2L</string>
+    <string name="dost">AL Dost, M Pickup, etc.</string>
+    <string name="up1500">Upto 1500 Kgs</string>
+    <string name="l8">L = 8 Feet, W = 5.3 Feet, H = 6.9 Feet</string>
+    <string name="our_representative_driver_will_contact_you_as_soon_as_possible">Our representative/driver will contact you as soon as possible.</string>
+    <string name="eta_10_min">ETA 10 MIN</string>
+    <string name="redirecting">Redirecting...</string>
+    <string name="_25_feb_2019_12_00_pm">25 Feb 2019, 12:00 PM</string>
+    <string name="completed">Completed</string>
+    <string name="tata_ace">Tata Ace</string>
+    <string name="go_to_your_orders">GO TO YOUR ORDERS</string>
 
 </resources>

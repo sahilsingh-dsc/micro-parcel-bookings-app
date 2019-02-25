@@ -209,7 +209,7 @@
             android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/v_name_TextView" />
+            app:layout_constraintTop_toBottomOf="@+id/vehicles_category_TextView" />
 
         <Button
             android:id="@+id/proceed_Button"
@@ -220,7 +220,7 @@
             android:layout_marginEnd="8dp"
             android:layout_marginRight="8dp"
             android:layout_marginBottom="24dp"
-            android:background="@drawable/btn_to_border"
+            android:background="@drawable/button_background"
             android:fontFamily="@font/numans"
             android:text="@string/proceed"
             android:textSize="20sp"
@@ -236,7 +236,7 @@
             android:layout_marginLeft="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginRight="8dp"
-            android:layout_marginBottom="2dp"
+            android:layout_marginBottom="8dp"
             android:gravity="center"
             android:orientation="horizontal"
             android:weightSum="2"
@@ -250,11 +250,11 @@
                 android:layout_height="45dp"
                 android:layout_margin="1dp"
                 android:layout_weight="1"
-                android:textSize="12sp"
+                android:background="@drawable/edittext_background"
                 android:fontFamily="@font/numans"
-                android:background="@drawable/btn_left"
                 android:gravity="center"
-                android:text="@string/open_body" />
+                android:text="@string/open_body"
+                android:textSize="12sp" />
 
             <TextView
                 android:id="@+id/v_cb_TextView"
@@ -262,11 +262,11 @@
                 android:layout_height="45dp"
                 android:layout_margin="1dp"
                 android:layout_weight="1"
+                android:background="@drawable/edittext_background"
                 android:fontFamily="@font/numans"
-                android:textSize="12sp"
-                android:background="@drawable/btn_nogravity_right"
                 android:gravity="center"
-                android:text="@string/container_body" />
+                android:text="@string/container_body"
+                android:textSize="12sp" />
         </LinearLayout>
 
         <TextView
@@ -308,6 +308,7 @@
             android:fontFamily="@font/numans"
             android:text="@string/xs"
             android:textSize="20sp"
+            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="@+id/v_ImageView"
             app:layout_constraintStart_toStartOf="@+id/v_ImageView"
             app:layout_constraintTop_toBottomOf="@+id/v_ImageView" />
@@ -321,6 +322,17 @@
             app:layout_constraintEnd_toEndOf="@+id/constraintLayout"
             app:layout_constraintStart_toStartOf="@+id/constraintLayout"
             app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
+
+        <TextView
+            android:id="@+id/vehicles_category_TextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/numans"
+            android:text="Delivery Bikes"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@+id/v_name_TextView"
+            app:layout_constraintStart_toStartOf="@+id/v_name_TextView"
+            app:layout_constraintTop_toBottomOf="@+id/v_name_TextView" />
 
     </android.support.constraint.ConstraintLayout>
 </FrameLayout>

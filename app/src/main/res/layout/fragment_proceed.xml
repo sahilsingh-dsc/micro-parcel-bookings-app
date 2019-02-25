@@ -89,24 +89,6 @@
             app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
 
         <TextView
-            android:id="@+id/opt_insurance_TextView"
-            android:layout_width="315dp"
-            android:layout_height="45dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginRight="8dp"
-            android:background="@drawable/edittext_background"
-            android:fontFamily="@font/numans"
-            android:gravity="center"
-            android:text="@string/insurance"
-            android:textSize="12sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/opt_physical_pod_TextView" />
-
-        <TextView
             android:id="@+id/est_fare_TextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -142,11 +124,45 @@
             android:id="@+id/textView12"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="8dp"
             android:text="@string/estimated_fare"
             app:layout_constraintEnd_toEndOf="@+id/est_fare_TextView"
             app:layout_constraintStart_toStartOf="@+id/est_fare_TextView"
-            app:layout_constraintTop_toBottomOf="@+id/opt_insurance_TextView" />
+            app:layout_constraintTop_toBottomOf="@+id/opt_physical_pod_TextView" />
+
+        <TextView
+            android:id="@+id/pickoff_contact_TextView"
+            android:layout_width="315dp"
+            android:layout_height="45dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginBottom="8dp"
+            android:background="@drawable/edittext_background"
+            android:fontFamily="@font/numans"
+            android:gravity="center"
+            android:text="Select Pickoff Contact"
+            app:layout_constraintBottom_toTopOf="@+id/dropoff_contact_TextView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/dropoff_contact_TextView"
+            android:layout_width="315dp"
+            android:layout_height="45dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginBottom="8dp"
+            android:background="@drawable/edittext_background"
+            android:fontFamily="@font/numans"
+            android:gravity="center"
+            android:text="Select Dropoff Contact"
+            app:layout_constraintBottom_toTopOf="@+id/est_fare_book_now_Button"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
     </android.support.constraint.ConstraintLayout>
 </FrameLayout>

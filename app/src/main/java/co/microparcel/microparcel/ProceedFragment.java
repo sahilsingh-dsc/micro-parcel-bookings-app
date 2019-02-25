@@ -1,10 +1,21 @@
 package co.microparcel.microparcel;
 
+import android.app.Activity;
+import android.content.Intent;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.provider.ContactsContract;
+import android.support.design.widget.BottomNavigationView;
+import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,7 +43,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
 
+import co.microparcel.microparcel.models.OrderData;
 import dmax.dialog.SpotsDialog;
+
+import static android.app.Activity.RESULT_OK;
+import static android.support.constraint.Constraints.TAG;
 
 public class ProceedFragment extends Fragment {
 
@@ -44,9 +59,12 @@ public class ProceedFragment extends Fragment {
 
     private String DistanceResult, DurationResult;
 
-    private Button est_fare_book_now_Button;
+    private Button est_fare_book_now_Button, track_driver_Button;
 
     private AlertDialog.Builder builder, del;
+
+    private static int SPLASH_TIME_OUT = 5000;
+    private static int SPLASH_TIME_OUT_REDIRECT = 3000;
 
     private TextView est_fare_TextView, goods_to_ship_TextView, opt_loading_TextView, opt_unloading_TextView, delivery_inst_or_cod_amt_TextView, opt_physical_pod_TextView, opt_insurance_TextView;
 
@@ -54,17 +72,24 @@ public class ProceedFragment extends Fragment {
 
     private EditText goods_weight_EditText;
 
-    private int loading_switch = 0, unloading_switch = 0, pod_switch = 0, insurance_switch = 0;
+    private int loading_switch = 0, unloading_switch = 0, pod_switch = 0, insurance_switch = 0, contact_switch = 0;
 
     private android.app.AlertDialog loadingDialog;
 
+    private TextView pickoff_contact_TextView, dropoff_contact_TextView;
+
+    private static final int REQUEST_CODE = 1;
+
+    private String ad_pickoff_address, ad_dropoff_address, ad_pickoff_contact_name, ad_pickoff_contact_mobile, ad_dropoff_contact_name, ad_dropoff_contact_mobile, ad_goodstoship, ad_fare, ad_km;
+    private Integer ad_vehicle, ad_vehicle_type, ad_loading, ad_unloading, ad_pod;
+    String od_date_time_of_order, od_service_type, od_fare, od_order_status;
     public ProceedFragment() {
         // Required empty public constructor
     }
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
 
 
@@ -77,6 +102,15 @@ public class ProceedFragment extends Fragment {
         vehicle_type = getArguments().getString("vehicle_type");
 
 
+        ad_pickoff_address = pickoff;
+        ad_dropoff_address = dropoff;
+        ad_vehicle = Integer.valueOf(vehicle);
+        ad_vehicle_type = Integer.valueOf(vehicle_type);
+
+
+
+        DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference("ODR");
+        dbRef.child("odr-state").setValue("-1");
 
         callFareLoading();
 
@@ -89,6 +123,28 @@ public class ProceedFragment extends Fragment {
         est_fare_book_now_Button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                String goods_name = goods_to_ship_TextView.getText().toString();
+                if (goods_name.equals("Goods to ship")){
+                    Toast.makeText(getContext(), "Select goods to ship", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                String pickoff_contact = pickoff_contact_TextView.getText().toString();
+                String dropoff_contact = dropoff_contact_TextView.getText().toString();
+                if (pickoff_contact.equals("Select Pickoff Contact")){
+                    Toast.makeText(getContext(), "Select Pickoff Contact", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                if (dropoff_contact.equals("Select Dropoff Contact")){
+                    Toast.makeText(getContext(), "Select Dropoff Contact", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                ad_fare = est_fare_TextView.getText().toString().trim();
+                ad_km = String.valueOf(km);
+
                 callLoading();
             }
         });
@@ -127,6 +183,8 @@ public class ProceedFragment extends Fragment {
 
                     }
 
+                    ad_loading = loading_switch;
+
                     callFare();
 
                 }
@@ -154,6 +212,8 @@ public class ProceedFragment extends Fragment {
                         unloading_switch = 0;
                     }
 
+                    ad_unloading = unloading_switch;
+
                     callFare();
 
                 }
@@ -174,13 +234,15 @@ public class ProceedFragment extends Fragment {
                 }
                 Toast.makeText(getContext(), "POD : "+pod_switch, Toast.LENGTH_SHORT).show();
 
+                ad_pod = pod_switch;
+
                 callFare();
 
             }
         });
 
 
-        opt_insurance_TextView = view.findViewById(R.id.opt_insurance_TextView);
+     /*   opt_insurance_TextView = view.findViewById(R.id.opt_insurance_TextView);
         opt_insurance_TextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -196,7 +258,35 @@ public class ProceedFragment extends Fragment {
                 callFare();
 
             }
+        });*/
+
+        pickoff_contact_TextView = view.findViewById(R.id.pickoff_contact_TextView);
+        pickoff_contact_TextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                contact_switch = 1;
+                Uri uri = Uri.parse("content://contacts");
+                Intent intent = new Intent(Intent.ACTION_PICK, uri);
+                intent.setType(ContactsContract.CommonDataKinds.Phone.CONTENT_TYPE);
+                startActivityForResult(intent, REQUEST_CODE);
+            }
         });
+
+        dropoff_contact_TextView = view.findViewById(R.id.dropoff_contact_TextView);
+        dropoff_contact_TextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                contact_switch = 2;
+                Uri uri = Uri.parse("content://contacts");
+                Intent intent = new Intent(Intent.ACTION_PICK, uri);
+                intent.setType(ContactsContract.CommonDataKinds.Phone.CONTENT_TYPE);
+                startActivityForResult(intent, REQUEST_CODE);
+            }
+        });
+
+
+
+
 
 
 
@@ -291,7 +381,17 @@ public class ProceedFragment extends Fragment {
                 loadingDialog.dismiss();
 
             } else {
-                Toast.makeText(getContext(), "Can't Serve...", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Very Small Distance!", Toast.LENGTH_SHORT).show();
+                loadingDialog.dismiss();
+
+                          CreateOrderFragment createOrderFragment = new CreateOrderFragment();
+                          FragmentManager fragmentManager = getFragmentManager();
+                          assert fragmentManager != null;
+                          FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                          fragmentTransaction.add(R.id.fragmant_holder_FrameLayout, createOrderFragment);
+                          fragmentTransaction.hide(ProceedFragment.this);
+                          fragmentTransaction.addToBackStack(null);
+                          fragmentTransaction.commit();
             }
         }
     }
@@ -334,6 +434,7 @@ public class ProceedFragment extends Fragment {
                 String itemname = map.get("goods_title");
                 Toast.makeText(getContext(), ""+itemname, Toast.LENGTH_SHORT).show();
                 goods_to_ship_TextView.setText(itemname);
+                ad_goodstoship = itemname;
                 dialog.dismiss();
             }
 
@@ -342,7 +443,7 @@ public class ProceedFragment extends Fragment {
 
     private void callFare(){
 
-        double loading_charge = 0.00, unloading_charge = 0.00, pod_charge = 0.00, insurance_charge = 0.00;
+        double loading_charge = 0.00, unloading_charge = 0.00, pod_charge = 0.00;
 
         if (loading_switch == 0){
            loading_charge =  0.00;
@@ -368,39 +469,31 @@ public class ProceedFragment extends Fragment {
             pod_charge = 30.0;
         }
 
-        if (insurance_switch == 0){
-            insurance_charge = 0.00;
-        }
-
-        if (insurance_switch == 1){
-            insurance_charge = 40.0;
-        }
-
         if (vehicle.equals("1")) {
             float carrierfare = (float) (((km-1.0)*7)+30);
             double carrierfare_round = Math.round(carrierfare);
-            est_fare = carrierfare_round + loading_charge + unloading_charge + pod_charge + insurance_charge;
+            est_fare = carrierfare_round + loading_charge + unloading_charge + pod_charge;
             est_fare_TextView.setText(String.format("₹%s", est_fare));
         }
 
         if (vehicle.equals("2")) {
             float carrierfare = (float) ((km-3.0)*22)+180;
             double carrierfare_round = Math.round(carrierfare);
-            est_fare = carrierfare_round + loading_charge + unloading_charge + pod_charge + insurance_charge;
+            est_fare = carrierfare_round + loading_charge + unloading_charge + pod_charge;
             est_fare_TextView.setText(String.format("₹%s", est_fare));
         }
 
         if (vehicle.equals("3")) {
             float carrierfare = (float) ((km-3.0)*29)+250;
             double carrierfare_round = Math.round(carrierfare);
-            est_fare = carrierfare_round + loading_charge + unloading_charge + pod_charge + insurance_charge;
+            est_fare = carrierfare_round + loading_charge + unloading_charge + pod_charge;
             est_fare_TextView.setText(String.format("₹%s", est_fare));
         }
 
         if (vehicle.equals("4")) {
             float carrierfare = (float) ((km-3.0)*34)+300;
             double carrierfare_round = Math.round(carrierfare);
-            est_fare = carrierfare_round + loading_charge + unloading_charge + pod_charge + insurance_charge;
+            est_fare = carrierfare_round + loading_charge + unloading_charge + pod_charge;
             est_fare_TextView.setText(String.format("₹%s", est_fare));
         }
 
@@ -425,7 +518,7 @@ public class ProceedFragment extends Fragment {
         SimpleDateFormat s = new SimpleDateFormat("ddMMyyyyhhmmss");
         String format = s.format(new Date());
 
-        LeadData leadData = new LeadData(PICKOFF_LOCATION, DROPOFF_LOCATION, VEHICLE, VEHICLE_TYPE, BASE_FARE, KILOMETER, loading_switch, unloading_switch, pod_switch);
+        LeadData leadData = new LeadData(PICKOFF_LOCATION, DROPOFF_LOCATION, VEHICLE, VEHICLE_TYPE, BASE_FARE, KILOMETER);
 
         leadRef.child("LEADS_DATA").child(username).setValue(leadData);
 
@@ -434,21 +527,136 @@ public class ProceedFragment extends Fragment {
 
 
     private void callLoading(){
+        DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference("ODR");
+        dbRef.child("odr-state").setValue("1");
         loadingDialog = new SpotsDialog.Builder().setContext(getContext())
                 .setTheme(R.style.loading)
                 .setMessage("Finding Vehicle")
                 .build();
         loadingDialog.show();
+        callSendVehicleRequest();
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference("ODR");
+                dbRef.child("odr-state").setValue("0");
+                dbRef = FirebaseDatabase.getInstance().getReference("ODR");
+                dbRef.child("odr-state").setValue("-1");
+                loadingDialog.dismiss();
+                LayoutInflater layoutInflater = LayoutInflater.from(getContext());
+                View mView = layoutInflater.inflate(R.layout.request_vehicle_alert, null);
+                builder = new AlertDialog.Builder(getContext());
+                builder.setView(mView);
+                builder.setCancelable(false);
+                final AlertDialog dialog = builder.create();
+                dialog.show();
+
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        dialog.dismiss();
+                        CreateOrderFragment createOrderFragment = new CreateOrderFragment();
+                        FragmentManager fragmentManager = getFragmentManager();
+                        assert fragmentManager != null;
+                        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                        fragmentTransaction.replace(R.id.fragmant_holder_FrameLayout, createOrderFragment);
+                        fragmentTransaction.commit();
+                    }
+
+                }, SPLASH_TIME_OUT_REDIRECT);
+
+
+            }
+
+        }, SPLASH_TIME_OUT);
     }
 
     private void callFareLoading(){
         loadingDialog = new SpotsDialog.Builder().setContext(getContext())
                 .setTheme(R.style.loading)
                 .setMessage("Calculating Fare")
+                .setCancelable(false)
                 .build();
         loadingDialog.show();
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode,
+                                 Intent intent) {
+        if (requestCode == REQUEST_CODE) {
+            if (resultCode == RESULT_OK) {
+                Uri uri = intent.getData();
+                String[] projection = { ContactsContract.CommonDataKinds.Phone.NUMBER, ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME };
 
+                Cursor cursor = getContext().getContentResolver().query(uri, projection,
+                        null, null, null);
+                cursor.moveToFirst();
+
+                int numberColumnIndex = cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER);
+                String number = cursor.getString(numberColumnIndex);
+                String only_number = number.replaceAll("[^a-zA-Z0-9]", "");
+                if (only_number.length() == 12){
+                    only_number = only_number.substring(2);
+                }
+
+                int nameColumnIndex = cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME);
+                String name = cursor.getString(nameColumnIndex);
+
+                if (contact_switch == 1){
+                    pickoff_contact_TextView.setText(name+ " :: " +only_number);
+                    ad_pickoff_contact_name = name;
+                    ad_pickoff_contact_mobile = only_number;
+                }
+
+                if (contact_switch == 2){
+                    dropoff_contact_TextView.setText(name + " :: " + only_number);
+                    ad_dropoff_contact_name = name;
+                    ad_dropoff_contact_mobile = only_number;
+                }
+
+
+
+            }
+        }
+    };
+
+    private void callSendVehicleRequest(){
+
+        DatabaseReference active_orderRef = FirebaseDatabase.getInstance().getReference("BOOKINGS_DATA");
+        ActiveData activeData = new ActiveData(ad_pickoff_address, ad_dropoff_address, ad_pickoff_contact_name, ad_pickoff_contact_mobile, ad_dropoff_contact_name, ad_dropoff_contact_mobile, ad_goodstoship, ad_fare, ad_km, ad_vehicle, ad_vehicle_type, ad_loading, ad_unloading, ad_pod);
+        FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        assert firebaseUser != null;
+        String username = firebaseUser.getUid();
+        active_orderRef.child("ACTIVE_DATA").child(username).push().setValue(activeData);
+
+        DatabaseReference orderdataRef = FirebaseDatabase.getInstance().getReference("BOOKINGS_DATA");
+        Date date = new Date( );
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat ("E dd:MM:y hh:mm a");
+
+        od_date_time_of_order = simpleDateFormat.format(date);
+        od_order_status = "2";
+
+        if (ad_vehicle == 1){
+            od_service_type = "XS";
+        }
+
+        if (ad_vehicle == 2){
+            od_service_type = "XM";
+        }
+
+        if (ad_vehicle == 3){
+            od_service_type = "XL";
+        }
+
+        if (ad_vehicle == 4){
+            od_service_type = "X2L";
+        }
+
+        od_fare = ad_fare;
+
+        OrderData orderData = new OrderData(od_date_time_of_order, od_service_type, od_fare, od_order_status);
+        orderdataRef.child("ORDERS").child("ONGOING_ORDERS").child(username).push().setValue(orderData);
+
+    }
 
 }

@@ -52,12 +52,13 @@ public class LoginActivity extends AppCompatActivity {
 
 
 
-        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+        final FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
         firebaseAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
                     Toast.makeText(LoginActivity.this, "Authentication succesfull", Toast.LENGTH_SHORT).show();
+                    finish();
                     startActivity(new Intent(getApplicationContext(), MainActivity.class));
 
                 } else {

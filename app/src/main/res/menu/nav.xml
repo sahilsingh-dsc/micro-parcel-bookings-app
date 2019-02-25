@@ -3,7 +3,16 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/create_order_menu_item"
-        android:icon="@drawable/ic_hand_truck_menu"
-        android:title="@string/create_order" />
+        android:id="@+id/vehicle_order_item"
+        android:icon="@drawable/ic_mini_truck"
+        android:title="Vehicle" />
+    <item
+        android:id="@+id/courier_order_item"
+        android:icon="@drawable/ic_public_black_24dp"
+        android:title="Courier" />
+    <item
+        android:id="@+id/your_orders_item"
+        android:icon="@drawable/ic_history_black_24dp"
+        android:title="Orders" />
+
 </menu>

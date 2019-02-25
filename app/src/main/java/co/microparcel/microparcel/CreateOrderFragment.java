@@ -1,4 +1,5 @@
 package co.microparcel.microparcel;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
@@ -6,6 +7,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,12 +31,12 @@ public class CreateOrderFragment extends Fragment {
 
     private Button proceed_Button;
     private LinearLayout v_xs_LinearLayout, v_xm_LinearLayout, v_xl_LinearLayout, v_x2l_LinearLayout;
-    private TextView v_name_TextView, v_cap_TextView, v_dim_TextView, v_desc_TextView, v_ob_TextView, v_cb_TextView;
+    private TextView v_name_TextView, v_cap_TextView, v_dim_TextView, v_desc_TextView, v_ob_TextView, v_cb_TextView, vehicles_category_TextView;
     private TextView loc_pickoff_TextView, loc_dropoff_TextView;
     private ImageView v_ImageView;
     private Animation aniSlide;
     private ProgressBar loc_progressBar;
-    private String vehicle_type_switch = "0";
+    private String vehicle_type_switch;
     private Integer location_switch, vehicle_switch;
     private final int REQUEST_CODE_PLACEPICKER = 1;
     private String pickup, drop;
@@ -52,6 +54,8 @@ public class CreateOrderFragment extends Fragment {
         loc_progressBar = view.findViewById(R.id.loc_progressBar);
         loc_progressBar.setVisibility(View.INVISIBLE);
 
+
+
         v_xs_LinearLayout = view.findViewById(R.id.v_xs_LinearLayout);
         v_xm_LinearLayout = view.findViewById(R.id.v_xm_LinearLayout);
         v_xl_LinearLayout = view.findViewById(R.id.v_xl_LinearLayout);
@@ -64,8 +68,10 @@ public class CreateOrderFragment extends Fragment {
         v_ob_TextView = view.findViewById(R.id.v_ob_TextView);
         v_cb_TextView = view.findViewById(R.id.v_cb_TextView);
 
-        v_cb_TextView.setBackground(getResources().getDrawable(R.drawable.btn_nogravity_right));
-        v_ob_TextView.setBackground(getResources().getDrawable(R.drawable.btn_nogravity_left));
+        vehicles_category_TextView = view.findViewById(R.id.vehicles_category_TextView);
+
+        v_cb_TextView.setBackground(getResources().getDrawable(R.drawable.edittext_background));
+        v_ob_TextView.setBackground(getResources().getDrawable(R.drawable.edittext_background));
 
         loc_pickoff_TextView = view.findViewById(R.id.loc_pickoff_TextView);
         loc_pickoff_TextView.setOnClickListener(new View.OnClickListener() {
@@ -132,6 +138,8 @@ public class CreateOrderFragment extends Fragment {
             }
         });
 
+        vehicle_type_switch = "0";
+
 
 
         proceed_Button = view.findViewById(R.id.proceed_Button);
@@ -154,6 +162,11 @@ public class CreateOrderFragment extends Fragment {
                     return;
                 }
 
+
+                if (vehicle_type_switch.equals("0") && !(vehicle_switch == 1)){
+                    callNoVehicleType();
+                    return;
+                }
 
 
                 ProceedFragment pfData = new ProceedFragment ();
@@ -184,10 +197,11 @@ public class CreateOrderFragment extends Fragment {
         v_xl_LinearLayout.setBackground(getResources().getDrawable(R.drawable.edittext_background));
         v_x2l_LinearLayout.setBackground(getResources().getDrawable(R.drawable.edittext_background));
         v_ImageView.setImageResource(R.drawable.ic_motorcycle);
-        v_name_TextView.setText("XS");
-        v_cap_TextView.setText("Upto 30kgs");
-        v_dim_TextView.setText("L = 15, W = 15, H = 15");
-        v_desc_TextView.setText("Best for urgent deliveries of documents, parcels like books, gifts, cakes, small electronics and other stuffs upto 30 kg of weight.");
+        v_name_TextView.setText(getString(R.string.xs_veh));
+        vehicles_category_TextView.setText(getString(R.string.del_bike));
+        v_cap_TextView.setText(getString(R.string._15));
+        v_dim_TextView.setText(getString(R.string._l40));
+        v_desc_TextView.setText(getString(R.string.bike_desc));
     }
     private void v_xm(){
         vehicle_switch = 2;
@@ -198,10 +212,11 @@ public class CreateOrderFragment extends Fragment {
         v_xl_LinearLayout.setBackground(getResources().getDrawable(R.drawable.edittext_background));
         v_x2l_LinearLayout.setBackground(getResources().getDrawable(R.drawable.edittext_background));
         v_ImageView.setImageResource(R.drawable.ic_truck);
-        v_name_TextView.setText("XM");
-        v_cap_TextView.setText("Upto 750kgs");
-        v_dim_TextView.setText("L = 15, W = 15, H = 15");
-        v_desc_TextView.setText("Best for urgent deliveries of documents, parcels like books, gifts, cakes, small electronics and other stuffs upto 30 kg of weight.");
+        v_name_TextView.setText(getString(R.string.xm_veh));
+        vehicles_category_TextView.setText(getString(R.string.ape));
+        v_cap_TextView.setText(getString(R.string.up_500));
+        v_dim_TextView.setText(getString(R.string.l6));
+        v_desc_TextView.setText("Best for urgent deliveries of small furnitures, manufactured goods and other commercial & non-commercial stuffs upto 500 Kgs of weight.");
     }
     private void v_xl(){
         vehicle_switch = 3;
@@ -212,10 +227,11 @@ public class CreateOrderFragment extends Fragment {
         v_xl_LinearLayout.setBackground(getResources().getDrawable(R.drawable.button_background));
         v_x2l_LinearLayout.setBackground(getResources().getDrawable(R.drawable.edittext_background));
         v_ImageView.setImageResource(R.drawable.ic_truck);
-        v_name_TextView.setText("XL");
-        v_cap_TextView.setText("Upto 1200kgs");
-        v_dim_TextView.setText("L = 15, W = 15, H = 15");
-        v_desc_TextView.setText("Best for urgent deliveries of documents, parcels like books, gifts, cakes, small electronics and other stuffs upto 30 kg of weight.");
+        v_name_TextView.setText(getString(R.string.xl_veh));
+        vehicles_category_TextView.setText(getString(R.string.ace));
+        v_cap_TextView.setText(getString(R.string.up750));
+        v_dim_TextView.setText(getString(R.string.l7));
+        v_desc_TextView.setText("Best for urgent deliveries of 1 BHK House Shifting, furnitures, manufactured goods and other commercial & non-commercial stuffs upto 750 Kgs of weight.");
     }
     private void v_x2l(){
         vehicle_switch = 4;
@@ -226,24 +242,25 @@ public class CreateOrderFragment extends Fragment {
         v_xl_LinearLayout.setBackground(getResources().getDrawable(R.drawable.edittext_background));
         v_x2l_LinearLayout.setBackground(getResources().getDrawable(R.drawable.button_background));
         v_ImageView.setImageResource(R.drawable.ic_truck);
-        v_name_TextView.setText("X2L");
-        v_cap_TextView.setText("Upto 2000kgs");
-        v_dim_TextView.setText("L = 15, W = 15, H = 15");
-        v_desc_TextView.setText("Best for urgent deliveries of documents, parcels like books, gifts, cakes, small electronics and other stuffs upto 30 kg of weight.");
+        v_name_TextView.setText(getString(R.string.x2l_veh));
+        vehicles_category_TextView.setText(getString(R.string.dost));
+        v_cap_TextView.setText(getString(R.string.up1500));
+        v_dim_TextView.setText(getString(R.string.l8));
+        v_desc_TextView.setText("Best for urgent deliveries of 1-2 BHK House Shifting, furnitures, manufactured goods and other commercial & non-commercial stuffs upto 1500 Kgs of weight.");
     }
     private void ob_veh(){
         vehicle_type_switch = "1";
-        v_ob_TextView.setBackground(getResources().getDrawable(R.drawable.btn_left));
-        v_cb_TextView.setBackground(getResources().getDrawable(R.drawable.btn_nogravity_right));
+        v_ob_TextView.setBackground(getResources().getDrawable(R.drawable.button_background));
+        v_cb_TextView.setBackground(getResources().getDrawable(R.drawable.edittext_background));
     }
     private void cb_veh(){
         vehicle_type_switch = "2";
-        v_ob_TextView.setBackground(getResources().getDrawable(R.drawable.btn_nogravity_left));
-        v_cb_TextView.setBackground(getResources().getDrawable(R.drawable.btn_right));
+        v_ob_TextView.setBackground(getResources().getDrawable(R.drawable.edittext_background));
+        v_cb_TextView.setBackground(getResources().getDrawable(R.drawable.button_background));
     }
     private void startPlacePickerActivity() {
         PlacePicker.IntentBuilder intentBuilder = new PlacePicker.IntentBuilder();
-        // this would only work if you have your Google Places API working
+
         try {
             Intent intent = null;
             if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT) {
@@ -267,6 +284,7 @@ public class CreateOrderFragment extends Fragment {
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT) {
             address = Objects.requireNonNull(placeSelected.getAddress()).toString();
         }
+
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT) {
             address = Objects.requireNonNull(placeSelected.getAddress()).toString();
         }
@@ -285,6 +303,41 @@ public class CreateOrderFragment extends Fragment {
         if (requestCode == REQUEST_CODE_PLACEPICKER && resultCode == RESULT_OK) {
             displaySelectedPlaceFromPlacePicker(data);
         }
+    }
+
+    private void callNoVehicleType(){
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        builder.setMessage("You have not selected preferred vehicle body type, Would you still like to proceed.");
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        builder.setPositiveButton("Proceed", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+                ProceedFragment pfData = new ProceedFragment ();
+                Bundle args = new Bundle();
+                args.putString("pickoff", pickup);
+                args.putString("dropoff", drop);
+                args.putInt("vehicle", vehicle_switch);
+                args.putString("vehicle_type", vehicle_type_switch);
+                pfData.setArguments(args);
+                FragmentManager fragmentManager = getFragmentManager();
+                assert fragmentManager != null;
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.add(R.id.fragmant_holder_FrameLayout, pfData);
+                fragmentTransaction.hide(CreateOrderFragment.this);
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
+
+            }
+        });
+        final AlertDialog dialog = builder.create();
+        dialog.show();
     }
 
 }
