@@ -1,4 +1,4 @@
-package co.microparcel.microparcel;
+package co.microparcel.microparcel.Util;
 
 import android.util.Log;
 

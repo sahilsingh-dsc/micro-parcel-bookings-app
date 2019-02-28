@@ -1,17 +1,18 @@
-package co.microparcel.microparcel.models;
+package co.microparcel.microparcel.Models;
 
 public class OrderData {
-    String od_date_time_of_order, od_service_type, od_fare, od_order_status;
+    String od_date_time_of_order, od_service_type, od_fare, od_order_status, od_order_no;
 
     OrderData(){
 
     }
 
-    public OrderData(String od_date_time_of_order, String od_service_type, String od_fare, String od_order_status) {
+    public OrderData(String od_date_time_of_order, String od_service_type, String od_fare, String od_order_status, String od_order_no) {
         this.od_date_time_of_order = od_date_time_of_order;
         this.od_service_type = od_service_type;
         this.od_fare = od_fare;
         this.od_order_status = od_order_status;
+        this.od_order_no = od_order_no;
     }
 
     public String getOd_date_time_of_order() {
@@ -44,5 +45,13 @@ public class OrderData {
 
     public void setOd_order_status(String od_order_status) {
         this.od_order_status = od_order_status;
+    }
+
+    public String getOd_order_no() {
+        return od_order_no;
+    }
+
+    public void setOd_order_no(String od_order_no) {
+        this.od_order_no = od_order_no;
     }
 }

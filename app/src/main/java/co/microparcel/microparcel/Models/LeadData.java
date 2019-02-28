@@ -1,4 +1,4 @@
-package co.microparcel.microparcel;
+package co.microparcel.microparcel.Models;
 
 public class LeadData {
 

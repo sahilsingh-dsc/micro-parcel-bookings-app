@@ -1,6 +1,5 @@
-package co.microparcel.microparcel;
+package co.microparcel.microparcel.Ui;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
@@ -9,13 +8,13 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.provider.ContactsContract;
+import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
-import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
-import android.util.Log;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,15 +22,18 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.ProgressBar;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.google.maps.model.LatLng;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -43,11 +45,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
 
-import co.microparcel.microparcel.models.OrderData;
+import co.microparcel.microparcel.R;
+import co.microparcel.microparcel.Util.httpConnect;
+import co.microparcel.microparcel.Models.ActiveData;
+import co.microparcel.microparcel.Models.LeadData;
+import co.microparcel.microparcel.Models.OrderData;
 import dmax.dialog.SpotsDialog;
 
 import static android.app.Activity.RESULT_OK;
-import static android.support.constraint.Constraints.TAG;
 
 public class ProceedFragment extends Fragment {
 
@@ -83,6 +88,11 @@ public class ProceedFragment extends Fragment {
     private String ad_pickoff_address, ad_dropoff_address, ad_pickoff_contact_name, ad_pickoff_contact_mobile, ad_dropoff_contact_name, ad_dropoff_contact_mobile, ad_goodstoship, ad_fare, ad_km;
     private Integer ad_vehicle, ad_vehicle_type, ad_loading, ad_unloading, ad_pod;
     String od_date_time_of_order, od_service_type, od_fare, od_order_status;
+    private String child_no;
+    private String mp_order_no;
+    private double pickoff_lat, pickoff_lng, dropoff_lat, dropoff_lng;
+    private LatLng pickoff_latlng, dropoff_latlng;
+    String pickoff_location, dropoff_location;
     public ProceedFragment() {
         // Required empty public constructor
     }
@@ -98,6 +108,12 @@ public class ProceedFragment extends Fragment {
 
         pickoff = getArguments().getString("pickoff");
         dropoff = getArguments().getString("dropoff");
+        pickoff_lat = getArguments().getDouble("pickoff_lat");
+        pickoff_lng = getArguments().getDouble("pickoff_lng");
+        dropoff_lat = getArguments().getDouble("dropoff_lat");
+        dropoff_lng = getArguments().getDouble("dropoff_lng");
+        pickoff_latlng = new LatLng(pickoff_lat, pickoff_lng);
+        dropoff_latlng = new LatLng(dropoff_lat, dropoff_lng);
         vehicle = String.valueOf(getArguments().getInt("vehicle"));
         vehicle_type = getArguments().getString("vehicle_type");
 
@@ -281,6 +297,7 @@ public class ProceedFragment extends Fragment {
                 Intent intent = new Intent(Intent.ACTION_PICK, uri);
                 intent.setType(ContactsContract.CommonDataKinds.Phone.CONTENT_TYPE);
                 startActivityForResult(intent, REQUEST_CODE);
+
             }
         });
 
@@ -528,10 +545,10 @@ public class ProceedFragment extends Fragment {
 
     private void callLoading(){
         DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference("ODR");
-        dbRef.child("odr-state").setValue("1");
+        dbRef.child("odr-state").setValue("3");
         loadingDialog = new SpotsDialog.Builder().setContext(getContext())
                 .setTheme(R.style.loading)
-                .setMessage("Finding Vehicle")
+                .setMessage("Requesting Order")
                 .build();
         loadingDialog.show();
         callSendVehicleRequest();
@@ -555,15 +572,17 @@ public class ProceedFragment extends Fragment {
                     @Override
                     public void run() {
                         dialog.dismiss();
-                        CreateOrderFragment createOrderFragment = new CreateOrderFragment();
-                        FragmentManager fragmentManager = getFragmentManager();
-                        assert fragmentManager != null;
-                        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                        fragmentTransaction.replace(R.id.fragmant_holder_FrameLayout, createOrderFragment);
-                        fragmentTransaction.commit();
+
+                        BottomNavigationView bottom_nav_Bar;
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                            bottom_nav_Bar = (BottomNavigationView) Objects.requireNonNull(getActivity()).findViewById(R.id.bottom_nav_Bar);
+                           bottom_nav_Bar.setSelectedItemId(R.id.orders_item);
+                        }
+
                     }
 
                 }, SPLASH_TIME_OUT_REDIRECT);
+
 
 
             }
@@ -622,41 +641,91 @@ public class ProceedFragment extends Fragment {
 
     private void callSendVehicleRequest(){
 
-        DatabaseReference active_orderRef = FirebaseDatabase.getInstance().getReference("BOOKINGS_DATA");
-        ActiveData activeData = new ActiveData(ad_pickoff_address, ad_dropoff_address, ad_pickoff_contact_name, ad_pickoff_contact_mobile, ad_dropoff_contact_name, ad_dropoff_contact_mobile, ad_goodstoship, ad_fare, ad_km, ad_vehicle, ad_vehicle_type, ad_loading, ad_unloading, ad_pod);
-        FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-        assert firebaseUser != null;
-        String username = firebaseUser.getUid();
-        active_orderRef.child("ACTIVE_DATA").child(username).push().setValue(activeData);
+        callOrderNo();
 
-        DatabaseReference orderdataRef = FirebaseDatabase.getInstance().getReference("BOOKINGS_DATA");
-        Date date = new Date( );
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat ("E dd:MM:y hh:mm a");
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
 
-        od_date_time_of_order = simpleDateFormat.format(date);
-        od_order_status = "2";
+                pickoff_location = String.valueOf(pickoff_latlng);
+                dropoff_location = String.valueOf(dropoff_latlng);
 
-        if (ad_vehicle == 1){
-            od_service_type = "XS";
-        }
+                String micro_parcel = "MP";
+                String doc_type = "ODR";
+                String gst_code_mp = "23";
+                Date odr_date = new Date( );
+                SimpleDateFormat odr_simpleDateFormat = new SimpleDateFormat ("y");
+                int sequence = Integer.parseInt(child_no);
+                int order_sequence = sequence+1;
+                String firebase_order_no = String.valueOf(order_sequence);
 
-        if (ad_vehicle == 2){
-            od_service_type = "XM";
-        }
+                DatabaseReference order_noRef = FirebaseDatabase.getInstance().getReference("APP_DATA");
+                order_noRef.child("VARIABLES").child("order_no").setValue(firebase_order_no);
 
-        if (ad_vehicle == 3){
-            od_service_type = "XL";
-        }
+                mp_order_no = micro_parcel+doc_type+gst_code_mp+odr_simpleDateFormat.format(odr_date)+order_sequence;
 
-        if (ad_vehicle == 4){
-            od_service_type = "X2L";
-        }
+                DatabaseReference active_orderRef = FirebaseDatabase.getInstance().getReference("BOOKINGS_DATA");
+                ActiveData activeData = new ActiveData(ad_pickoff_address, ad_dropoff_address, ad_pickoff_contact_name, ad_pickoff_contact_mobile, ad_dropoff_contact_name, ad_dropoff_contact_mobile, ad_goodstoship, ad_fare, ad_km, mp_order_no,pickoff_location, dropoff_location, ad_vehicle, ad_vehicle_type, ad_loading, ad_unloading, ad_pod);
+                FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+                assert firebaseUser != null;
+                String username = firebaseUser.getUid();
 
-        od_fare = ad_fare;
 
-        OrderData orderData = new OrderData(od_date_time_of_order, od_service_type, od_fare, od_order_status);
-        orderdataRef.child("ORDERS").child("ONGOING_ORDERS").child(username).push().setValue(orderData);
+
+                active_orderRef.child("ACTIVE_DATA").child(username).child(mp_order_no).setValue(activeData);
+
+                DatabaseReference orderdataRef = FirebaseDatabase.getInstance().getReference("BOOKINGS_DATA");
+                Date date = new Date( );
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat ("E dd:MM:y hh:mm a");
+
+                od_date_time_of_order = simpleDateFormat.format(date);
+                od_order_status = "3";
+
+                if (ad_vehicle == 1){
+                    od_service_type = "XS";
+                }
+
+                if (ad_vehicle == 2){
+                    od_service_type = "XM";
+                }
+
+                if (ad_vehicle == 3){
+                    od_service_type = "XL";
+                }
+
+                if (ad_vehicle == 4){
+                    od_service_type = "X2L";
+                }
+
+                od_fare = ad_fare;
+
+                OrderData orderData = new OrderData(od_date_time_of_order, od_service_type, od_fare, od_order_status, mp_order_no);
+                orderdataRef.child("ORDERS").child("ONGOING_ORDERS").child(username).child(mp_order_no).setValue(orderData);
+
+
+
+
+            }
+
+        }, SPLASH_TIME_OUT_REDIRECT);
 
     }
+
+    private void callOrderNo(){
+        DatabaseReference order_noRef = FirebaseDatabase.getInstance().getReference("APP_DATA");
+        order_noRef.child("VARIABLES").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                child_no = (String) dataSnapshot.child("order_no").getValue();
+                Toast.makeText(getContext(),child_no, Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
 
 }

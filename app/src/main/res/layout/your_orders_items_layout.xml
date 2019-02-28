@@ -6,6 +6,7 @@
     android:layout_height="wrap_content">
 
     <android.support.v7.widget.CardView
+        android:id="@+id/order_item_CardView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
@@ -32,11 +33,11 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginLeft="16dp"
-                android:fontFamily="@font/numans"
                 android:layout_marginTop="16dp"
+                android:fontFamily="@font/numans"
                 android:text="@string/_25_feb_2019_12_00_pm"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toBottomOf="@+id/cardView" />
 
             <TextView
                 android:id="@+id/order_status_TextView"
@@ -46,9 +47,9 @@
                 android:drawableStart="@drawable/ic_done_all_black_24dp"
                 android:drawableLeft="@drawable/ic_done_all_black_24dp"
                 android:drawablePadding="5dp"
+                android:fontFamily="@font/numans"
                 android:gravity="center"
                 android:text="@string/completed"
-                android:fontFamily="@font/numans"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/date_time_order_TextView"
                 app:layout_constraintTop_toBottomOf="@+id/date_time_order_TextView" />
@@ -60,21 +61,40 @@
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
                 android:layout_marginRight="16dp"
-                android:text="@string/tata_ace"
                 android:fontFamily="@font/numans"
+                android:text="@string/tata_ace"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toBottomOf="@+id/cardView" />
 
             <TextView
                 android:id="@+id/order_fare_TextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
-                android:text="@string/_500"
                 android:fontFamily="@font/numans"
+                android:text="@string/_500"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@+id/service_type_TextView"
                 app:layout_constraintTop_toBottomOf="@+id/service_type_TextView" />
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/cardView"
+                android:layout_width="0dp"
+                android:layout_height="20dp"
+                android:backgroundTint="@color/colorPrimary"
+                app:cardElevation="15dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:id="@+id/order_no_TextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="16dp"
+                    android:text="@string/mpodr23201902_1"
+                    android:layout_marginStart="16dp" />
+            </android.support.v7.widget.CardView>
         </android.support.constraint.ConstraintLayout>
     </android.support.v7.widget.CardView>
 </android.support.constraint.ConstraintLayout>

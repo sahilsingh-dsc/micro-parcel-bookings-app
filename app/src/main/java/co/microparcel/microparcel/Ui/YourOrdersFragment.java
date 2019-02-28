@@ -1,4 +1,4 @@
-package co.microparcel.microparcel;
+package co.microparcel.microparcel.Ui;
 
 
 import android.os.Build;
@@ -11,7 +11,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
-import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -23,10 +22,10 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 import co.microparcel.microparcel.Adapters.OrderAdapter;
-import co.microparcel.microparcel.models.OrderData;
+import co.microparcel.microparcel.R;
+import co.microparcel.microparcel.Models.OrderData;
 
 public class YourOrdersFragment extends Fragment {
 
@@ -67,7 +66,7 @@ public class YourOrdersFragment extends Fragment {
                 orderData.clear();
                 for (DataSnapshot orderSnap : dataSnapshot.getChildren()){
 
-                    String od_date_time_of_order, od_service_type, od_fare, od_order_status;
+                    String od_date_time_of_order, od_service_type, od_fare, od_order_status, od_order_no;
 
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
 
@@ -75,8 +74,9 @@ public class YourOrdersFragment extends Fragment {
                         od_service_type = (String) orderSnap.child("od_service_type").getValue();
                         od_fare = (String) orderSnap.child("od_fare").getValue();
                         od_order_status = (String) orderSnap.child("od_order_status").getValue();
+                        od_order_no = (String) orderSnap.child("od_order_no").getValue();
 
-                        OrderData od = new OrderData(od_date_time_of_order, od_service_type, od_fare, od_order_status);
+                        OrderData od = new OrderData(od_date_time_of_order, od_service_type, od_fare, od_order_status, od_order_no);
                         orderData.add(od);
 
                     }

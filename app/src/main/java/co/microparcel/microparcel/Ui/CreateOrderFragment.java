@@ -1,9 +1,10 @@
-package co.microparcel.microparcel;
+package co.microparcel.microparcel.Ui;
+import android.Manifest;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.support.constraint.ConstraintLayout;
-import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -22,9 +23,12 @@ import android.widget.Toast;
 
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlacePicker;
-import com.google.firebase.database.DatabaseReference;
+import com.google.android.gms.maps.model.LatLng;
 
 import java.util.Objects;
+
+import co.microparcel.microparcel.R;
+
 import static android.app.Activity.RESULT_OK;
 public class CreateOrderFragment extends Fragment {
     View view;
@@ -40,6 +44,11 @@ public class CreateOrderFragment extends Fragment {
     private Integer location_switch, vehicle_switch;
     private final int REQUEST_CODE_PLACEPICKER = 1;
     private String pickup, drop;
+    private double pickoff_lat, pickoff_lng, dropoff_lat, dropoff_lng;
+    LatLng pickoff_latlng, dropoff_latlng;
+    private static final int MY_PERMISSIONS_REQUEST_CALL_PHONE = 1;
+    private static final int MY_PERMISSIONS_REQUEST_READ_CONTACT = 2;
+    private static final int MY_PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 3;
     public CreateOrderFragment() {
         // Required empty public constructor
     }
@@ -48,6 +57,39 @@ public class CreateOrderFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view =  inflater.inflate(R.layout.fragment_create_order, container, false);
+
+        if (ActivityCompat.checkSelfPermission(getContext(),
+                Manifest.permission.CALL_PHONE) !=
+                PackageManager.PERMISSION_GRANTED) {
+            // Permission not yet granted. Use requestPermissions().
+            ActivityCompat.requestPermissions(getActivity(),
+                    new String[]{Manifest.permission.CALL_PHONE},
+                    MY_PERMISSIONS_REQUEST_CALL_PHONE);
+        } else {
+            // Permission already granted.
+        }
+
+        if (ActivityCompat.checkSelfPermission(getContext(),
+                Manifest.permission.READ_CONTACTS) !=
+                PackageManager.PERMISSION_GRANTED) {
+            // Permission not yet granted. Use requestPermissions().
+            ActivityCompat.requestPermissions(getActivity(),
+                    new String[]{Manifest.permission.READ_CONTACTS},
+                    MY_PERMISSIONS_REQUEST_READ_CONTACT);
+        } else {
+            // Permission already granted.
+        }
+
+        if (ActivityCompat.checkSelfPermission(getContext(),
+                Manifest.permission.ACCESS_FINE_LOCATION) !=
+                PackageManager.PERMISSION_GRANTED) {
+            // Permission not yet granted. Use requestPermissions().
+            ActivityCompat.requestPermissions(getActivity(),
+                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                    MY_PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION);
+        } else {
+            // Permission already granted.
+        }
 
         aniSlide = AnimationUtils.loadAnimation(getContext(), R.anim.slide_up);
 
@@ -175,6 +217,10 @@ public class CreateOrderFragment extends Fragment {
                 args.putString("dropoff", drop);
                 args.putInt("vehicle", vehicle_switch);
                 args.putString("vehicle_type", vehicle_type_switch);
+                args.putDouble("pickoff_lat", pickoff_lat);
+                args.putDouble("pickoff_lng", pickoff_lng);
+                args.putDouble("dropoff_lat", dropoff_lat);
+                args.putDouble("dropoff_lng", dropoff_lng);
                 pfData.setArguments(args);
                 FragmentManager fragmentManager = getFragmentManager();
                 assert fragmentManager != null;
@@ -283,6 +329,7 @@ public class CreateOrderFragment extends Fragment {
         String address = null;
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT) {
             address = Objects.requireNonNull(placeSelected.getAddress()).toString();
+
         }
 
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT) {
@@ -292,10 +339,14 @@ public class CreateOrderFragment extends Fragment {
         if (location_switch == 1) {
             loc_pickoff_TextView.setText(name);
             pickup = address;
+            pickoff_lat = placeSelected.getLatLng().latitude;
+            pickoff_lng = placeSelected.getLatLng().longitude;
         }
         if (location_switch == 2) {
             loc_dropoff_TextView.setText(name);
             drop = address;
+            dropoff_lat = placeSelected.getLatLng().latitude;
+            dropoff_lng = placeSelected.getLatLng().longitude;
         }
     }
     @Override
@@ -325,6 +376,10 @@ public class CreateOrderFragment extends Fragment {
                 args.putString("dropoff", drop);
                 args.putInt("vehicle", vehicle_switch);
                 args.putString("vehicle_type", vehicle_type_switch);
+                args.putDouble("pickoff_lat", pickoff_lat);
+                args.putDouble("pickoff_lng", pickoff_lng);
+                args.putDouble("dropoff_lat", dropoff_lat);
+                args.putDouble("dropoff_lng", dropoff_lng);
                 pfData.setArguments(args);
                 FragmentManager fragmentManager = getFragmentManager();
                 assert fragmentManager != null;

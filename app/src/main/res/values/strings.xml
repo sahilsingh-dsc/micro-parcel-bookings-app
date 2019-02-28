@@ -75,5 +75,16 @@
     <string name="completed">Completed</string>
     <string name="tata_ace">Tata Ace</string>
     <string name="go_to_your_orders">GO TO YOUR ORDERS</string>
+    <string name="mpodr23201902_1">MPODR23201902-1</string>
+    <string name="some_address">Some Address...</string>
+    <string name="trip_ongoing">Trip Ongoing</string>
+    <string name="cancel">Cancel</string>
+    <string name="track">Track</string>
+    <string name="tue_26_02_2019_12_20_am">Tue 26:02:2019 12:20 AM</string>
+    <string name="mpodr23201902_0">MPODR23201902-0</string>
+    <string name="book">Book</string>
+    <string name="orders">Orders</string>
+    <string name="payment">Payment</string>
+    <string name="account">Account</string>
 
 </resources>

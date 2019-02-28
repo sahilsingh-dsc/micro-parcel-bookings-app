@@ -3,16 +3,17 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/vehicle_order_item"
+        android:id="@+id/book_item"
         android:icon="@drawable/ic_mini_truck"
-        android:title="Vehicle" />
+        android:title="@string/book" />
+
     <item
-        android:id="@+id/courier_order_item"
-        android:icon="@drawable/ic_public_black_24dp"
-        android:title="Courier" />
-    <item
-        android:id="@+id/your_orders_item"
+        android:id="@+id/orders_item"
         android:icon="@drawable/ic_history_black_24dp"
-        android:title="Orders" />
+        android:title="@string/orders" />
+    <item
+        android:id="@+id/account_item"
+        android:icon="@drawable/ic_person_blackk_24dp"
+        android:title="@string/account" />
 
 </menu>

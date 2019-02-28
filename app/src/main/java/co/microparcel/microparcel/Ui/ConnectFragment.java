@@ -1,4 +1,4 @@
-package co.microparcel.microparcel;
+package co.microparcel.microparcel.Ui;
 
 
 import android.os.Bundle;
@@ -6,6 +6,8 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import co.microparcel.microparcel.R;
 
 
 /**

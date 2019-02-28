@@ -1,17 +1,17 @@
-package co.microparcel.microparcel;
+package co.microparcel.microparcel.Models;
 
 import java.util.Date;
 
 public class ActiveData {
 
-    private String ad_pickoff_address, ad_dropoff_address, ad_pickoff_contact_name, ad_pickoff_contact_mobile, ad_dropoff_contact_name, ad_dropoff_contact_mobile, ad_goodstoship, ad_fare, ad_km;
+    private String ad_pickoff_address, ad_dropoff_address, ad_pickoff_contact_name, ad_pickoff_contact_mobile, ad_dropoff_contact_name, ad_dropoff_contact_mobile, ad_goodstoship, ad_fare, ad_km, ad_order_no, ad_pickoff_latlng, ad_dropoff_latlng;
     private Integer ad_vehicle, ad_vehicle_type, ad_loading, ad_unloading, ad_pod;
 
     public ActiveData(){
 
     }
 
-    public ActiveData(String ad_pickoff_address, String ad_dropoff_address, String ad_pickoff_contact_name, String ad_pickoff_contact_mobile, String ad_dropoff_contact_name, String ad_dropoff_contact_mobile, String ad_goodstoship, String ad_fare, String ad_km, Integer ad_vehicle, Integer ad_vehicle_type, Integer ad_loading, Integer ad_unloading, Integer ad_pod) {
+    public ActiveData(String ad_pickoff_address, String ad_dropoff_address, String ad_pickoff_contact_name, String ad_pickoff_contact_mobile, String ad_dropoff_contact_name, String ad_dropoff_contact_mobile, String ad_goodstoship, String ad_fare, String ad_km, String ad_order_no, String ad_pickoff_latlng, String ad_dropoff_latlng, Integer ad_vehicle, Integer ad_vehicle_type, Integer ad_loading, Integer ad_unloading, Integer ad_pod) {
         this.ad_pickoff_address = ad_pickoff_address;
         this.ad_dropoff_address = ad_dropoff_address;
         this.ad_pickoff_contact_name = ad_pickoff_contact_name;
@@ -21,6 +21,9 @@ public class ActiveData {
         this.ad_goodstoship = ad_goodstoship;
         this.ad_fare = ad_fare;
         this.ad_km = ad_km;
+        this.ad_order_no = ad_order_no;
+        this.ad_pickoff_latlng = ad_pickoff_latlng;
+        this.ad_dropoff_latlng = ad_dropoff_latlng;
         this.ad_vehicle = ad_vehicle;
         this.ad_vehicle_type = ad_vehicle_type;
         this.ad_loading = ad_loading;
@@ -98,6 +101,30 @@ public class ActiveData {
 
     public void setAd_km(String ad_km) {
         this.ad_km = ad_km;
+    }
+
+    public String getAd_order_no() {
+        return ad_order_no;
+    }
+
+    public void setAd_order_no(String ad_order_no) {
+        this.ad_order_no = ad_order_no;
+    }
+
+    public String getAd_pickoff_latlng() {
+        return ad_pickoff_latlng;
+    }
+
+    public void setAd_pickoff_latlng(String ad_pickoff_latlng) {
+        this.ad_pickoff_latlng = ad_pickoff_latlng;
+    }
+
+    public String getAd_dropoff_latlng() {
+        return ad_dropoff_latlng;
+    }
+
+    public void setAd_dropoff_latlng(String ad_dropoff_latlng) {
+        this.ad_dropoff_latlng = ad_dropoff_latlng;
     }
 
     public Integer getAd_vehicle() {
