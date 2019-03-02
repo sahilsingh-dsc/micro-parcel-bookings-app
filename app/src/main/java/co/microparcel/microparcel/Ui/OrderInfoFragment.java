@@ -240,11 +240,11 @@ public class OrderInfoFragment extends Fragment implements OnMapReadyCallback, D
     @Override
     public void onMapReady(GoogleMap googleMap) {
         this.googleMap = googleMap;
+        googleMap.setBuildingsEnabled(true);
 
     }
 
     public void requestDirection() {
-        String time = null;
         Snackbar.make(view, "Direction Requesting...", Snackbar.LENGTH_SHORT).show();
         GoogleDirection.withServerKey(serverKey)
                 .from(pickoff_latlng)
@@ -252,7 +252,6 @@ public class OrderInfoFragment extends Fragment implements OnMapReadyCallback, D
                 .transportMode(TransportMode.DRIVING)
                 .alternativeRoute(true)
                 .execute(OrderInfoFragment.this);
-        Toast.makeText(getContext(), ""+time, Toast.LENGTH_SHORT).show();
     }
 
 
@@ -327,7 +326,8 @@ public class OrderInfoFragment extends Fragment implements OnMapReadyCallback, D
         LatLng southwest = route.getBound().getSouthwestCoordination().getCoordination();
         LatLng northeast = route.getBound().getNortheastCoordination().getCoordination();
         LatLngBounds bounds = new LatLngBounds(southwest, northeast);
-        googleMap.animateCamera(CameraUpdateFactory.newLatLngBounds(bounds, 200));
+        googleMap.animateCamera(CameraUpdateFactory
+                .newLatLngBounds(bounds, 200));
     }
 
     private void callCancelTrip(){
@@ -336,7 +336,7 @@ public class OrderInfoFragment extends Fragment implements OnMapReadyCallback, D
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT) {
             builder = new AlertDialog.Builder(Objects.requireNonNull(getContext()));
         }
-        builder.setMessage("Are you sure, do you really want to cancel this trip ?");
+        builder.setMessage("Are you sure, you really want to cancel this trip ?");
         builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {

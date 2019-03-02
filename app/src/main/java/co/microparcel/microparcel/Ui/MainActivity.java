@@ -113,7 +113,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         }
 
         this.doubleBackToExitPressedOnce = true;
-        Toast.makeText(this, "press back again...", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Press again to close Micro Parcel", Toast.LENGTH_SHORT).show();
 
         new Handler().postDelayed(new Runnable() {
 

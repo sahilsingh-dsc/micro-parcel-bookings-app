@@ -38,196 +38,83 @@ import dmax.dialog.SpotsDialog;
 
 public class LoginActivity extends AppCompatActivity {
 
-    private EditText cust_mobile_number_EditText, cust_mobile_code_EditText;
-    private Button send_otp_Button, verify_otp_Button;
-    private TextView resend_otp_TextView, otp_timer_TextView;
-    private ConstraintLayout loginLayout;
-    private FirebaseAuth mAuth, firebaseAuth;
-    AlertDialog autoVerifyDialog;
-    private PhoneAuthProvider.ForceResendingToken mResendToken;
-    private PhoneAuthProvider.OnVerificationStateChangedCallbacks mCallbacks;
-    String mVerificationId;
+    private EditText customer_email_EditText, customer_password_EditText;
+    private Button login_Button;
+    private AlertDialog loadingDialog;
+    private TextView signup_act_TextView;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        FirebaseApp.initializeApp(this);
 
-        autoVerifyDialog = new SpotsDialog.Builder().setContext(LoginActivity.this)
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if(user!=null) {
+            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+            startActivity(intent);
+            finish();
+        }
+
+        loadingDialog = new SpotsDialog.Builder().setContext(LoginActivity.this)
                 .setTheme(R.style.loading)
-                .setMessage("Auto Verifying OTP")
+                .setMessage("Authenticating User")
                 .setCancelable(false)
                 .build();
 
+        customer_email_EditText = findViewById(R.id.customer_email_EditText);
+        customer_password_EditText = findViewById(R.id.customer_password_EditText);
+        login_Button = findViewById(R.id.login_Button);
 
-        firebaseAuth = FirebaseAuth.getInstance();
-        if (firebaseAuth.getCurrentUser() != null) {
-            finish();
-            startActivity(new Intent(getApplicationContext(), MainActivity.class));
-        }
-
-        loginLayout = findViewById(R.id.loginLayout);
-
-        cust_mobile_number_EditText = findViewById(R.id.cust_mobile_number_EditText);
-        cust_mobile_code_EditText = findViewById(R.id.cust_mobile_code_EditText);
-
-
-        otp_timer_TextView = findViewById(R.id.otp_timer_TextView);
-        resend_otp_TextView = findViewById(R.id.resend_otp_TextView);
-
-        send_otp_Button = findViewById(R.id.send_otp_Button);
-        send_otp_Button.setOnClickListener(new View.OnClickListener() {
+        signup_act_TextView = findViewById(R.id.signup_act_TextView);
+        signup_act_TextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                finish();
+                startActivity(new Intent(LoginActivity.this, SignupActivity.class));
+            }
+        });
 
-                String mobile = cust_mobile_number_EditText.getText().toString().trim();
-                if (TextUtils.isEmpty(mobile)) {
-                    Snackbar snackbar = Snackbar
-                            .make(loginLayout, "Enter valid mobile number.", Snackbar.LENGTH_LONG);
-                    snackbar.show();
-                    cust_mobile_number_EditText.requestFocus();
-                    return;
+        login_Button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String email = customer_email_EditText.getText().toString().trim();
+                String password = customer_password_EditText.getText().toString().trim();
 
-                }
-
-                if (mobile.length() < 10 || mobile.length() > 10) {
-                    Snackbar snackbar = Snackbar
-                            .make(loginLayout, "Mobile number must be of 10 digits.", Snackbar.LENGTH_LONG);
-                    snackbar.show();
-                    cust_mobile_number_EditText.requestFocus();
+                if (email.length() == 0){
+                    Toast.makeText(LoginActivity.this, "Enter a valid email address.", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
-                startPhoneNumberVerification(mobile);
-                cust_mobile_number_EditText.setVisibility(View.INVISIBLE);
-                send_otp_Button.setVisibility(View.INVISIBLE);
-                cust_mobile_code_EditText.setVisibility(View.VISIBLE);
-                otp_timer_TextView.setVisibility(View.VISIBLE);
-                verify_otp_Button.setVisibility(View.VISIBLE);
-                autoVerifyDialog.show();
-                startTimer();
-            }
+                if (password.length() == 0 || password.length() < 6){
+                    Toast.makeText(LoginActivity.this, "Enter a valid password with min 6 characters.", Toast.LENGTH_SHORT).show();
+                    return;
+                }
 
-        });
-
-        resend_otp_TextView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                cust_mobile_code_EditText.setText("");
-                String mobileno = cust_mobile_number_EditText.getText().toString().trim();
-                resendVerificationCode(mobileno, mResendToken);
-                otp_timer_TextView.setVisibility(View.VISIBLE);
-                startTimer();
-                resend_otp_TextView.setVisibility(View.INVISIBLE);
+                callLoginWithFirebase(email, password);
             }
         });
 
+    }
 
-        verify_otp_Button = findViewById(R.id.verify_otp_Button);
-        verify_otp_Button.setOnClickListener(new View.OnClickListener() {
+    private void callLoginWithFirebase(String email, String password) {
+        loadingDialog.show();
+        final FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+        firebaseAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
             @Override
-            public void onClick(View v) {
-                String code = cust_mobile_code_EditText.getText().toString().trim();
-                verifyPhoneNumberWithCode(mVerificationId, code);
-            }
-        });
-
-
-        mAuth = FirebaseAuth.getInstance();
-        mCallbacks = new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
-            @Override
-            public void onVerificationCompleted(PhoneAuthCredential phoneAuthCredential) {
-                signInWithPhoneAuthCredential(phoneAuthCredential);
-            }
-
-            @Override
-            public void onVerificationFailed(FirebaseException e) {
-
-                if (e instanceof FirebaseAuthInvalidCredentialsException) {
-                    Snackbar snackbar = Snackbar
-                            .make(loginLayout, "Enter valid mobile number.", Snackbar.LENGTH_LONG);
-                    snackbar.show();
-                } else if (e instanceof FirebaseTooManyRequestsException) {
-                    Snackbar.make(loginLayout, "Quota exceeded.",
-                            Snackbar.LENGTH_SHORT).show();
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if (task.isSuccessful()){
+                    finish();
+//                    startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                    loadingDialog.dismiss();
+                    Toast.makeText(LoginActivity.this, "Auth Successfull", Toast.LENGTH_SHORT).show();
+                }else {
+                    Toast.makeText(LoginActivity.this, "Auth Unsuccessfull", Toast.LENGTH_SHORT).show();
+                    loadingDialog.dismiss();
                 }
             }
-
-            @Override
-            public void onCodeSent(String verificationId,
-                                   PhoneAuthProvider.ForceResendingToken token) {
-                mVerificationId = verificationId;
-                mResendToken = token;
-            }
-        };
-
+        });
 
     }
-
-    private void signInWithPhoneAuthCredential(PhoneAuthCredential credential) {
-        mAuth.signInWithCredential(credential)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            autoVerifyDialog.dismiss();
-                            FirebaseUser user = task.getResult().getUser();
-                            startActivity(new Intent(LoginActivity.this, MainActivity.class));
-                            finish();
-                        } else {
-                            if (task.getException() instanceof FirebaseAuthInvalidCredentialsException) {
-                                Snackbar.make(loginLayout, "This otp is invalid.",
-                                        Snackbar.LENGTH_LONG).show();
-                                cust_mobile_code_EditText.setEnabled(true);
-                            }
-                        }
-                    }
-                });
-    }
-
-
-    private void startPhoneNumberVerification(String phoneNumber) {
-        PhoneAuthProvider.getInstance().verifyPhoneNumber(
-                getString(R.string.country_code)+phoneNumber,        // Phone number to verify
-                60,                 // Timeout duration
-                TimeUnit.SECONDS,   // Unit of timeout
-                this,               // Activity (for callback binding)
-                mCallbacks);        // OnVerificationStateChangedCallbacks
-    }
-
-    private void verifyPhoneNumberWithCode(String verificationId, String code) {
-        PhoneAuthCredential credential = PhoneAuthProvider.getCredential(verificationId, code);
-        signInWithPhoneAuthCredential(credential);
-    }
-
-    private void resendVerificationCode(String phoneNumber,
-                                        PhoneAuthProvider.ForceResendingToken token) {
-        PhoneAuthProvider.getInstance().verifyPhoneNumber(
-                getString(R.string.country_code)+phoneNumber,        // Phone number to verify
-                60,                 // Timeout duration
-                TimeUnit.SECONDS,   // Unit of timeout
-                this,               // Activity (for callback binding)
-                mCallbacks,         // OnVerificationStateChangedCallbacks
-                token);             // ForceResendingToken from callbacks
-    }
-
-    CountDownTimer cTimer = null;
-
-    void startTimer() {
-        cTimer = new CountDownTimer(30000, 1000) {
-            public void onTick(long millisUntilFinished) {
-                otp_timer_TextView.setText(millisUntilFinished / 1000+" sec");
-            }
-            public void onFinish() {
-                resend_otp_TextView.setVisibility(View.VISIBLE);
-                otp_timer_TextView.setVisibility(View.INVISIBLE);
-                autoVerifyDialog.dismiss();
-            }
-        };
-        cTimer.start();
-    }
-
 
 }

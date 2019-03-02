@@ -14,22 +14,22 @@
 
         <android.support.constraint.ConstraintLayout
             android:id="@+id/constraintLayout"
-            android:layout_width="315dp"
+            android:layout_width="0dp"
             android:layout_height="92dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginLeft="24dp"
             android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginRight="8dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginRight="24dp"
             android:elevation="15dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/loc_progressBar"
             tools:targetApi="lollipop">
 
             <TextView
                 android:id="@+id/loc_pickoff_TextView"
-                android:layout_width="315dp"
+                android:layout_width="0dp"
                 android:layout_height="45dp"
                 android:background="@drawable/loc_tv_to"
                 android:fontFamily="@font/numans"
@@ -41,7 +41,7 @@
 
             <TextView
                 android:id="@+id/loc_dropoff_TextView"
-                android:layout_width="315dp"
+                android:layout_width="0dp"
                 android:layout_height="45dp"
                 android:background="@drawable/loc_tv_from"
                 android:fontFamily="@font/numans"
@@ -49,31 +49,32 @@
                 android:text="@string/select_dropoff_address"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="parent" />
         </android.support.constraint.ConstraintLayout>
 
         <LinearLayout
             android:id="@+id/linearLayout"
-            android:layout_width="316dp"
-            android:layout_height="85dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginLeft="24dp"
             android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginRight="8dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginRight="24dp"
             android:gravity="center"
             android:orientation="horizontal"
-            android:padding="5dp"
-            android:weightSum="4"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/constraintLayout">
+            app:layout_constraintTop_toBottomOf="@+id/constraintLayout"
+            android:baselineAligned="false">
 
             <LinearLayout
                 android:id="@+id/v_xs_LinearLayout"
-                android:layout_width="75dp"
-                android:layout_height="75dp"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
                 android:layout_margin="1dp"
+                android:layout_weight="1"
                 android:background="@drawable/button_background"
                 android:gravity="center"
                 android:orientation="vertical"
@@ -98,11 +99,12 @@
 
             <LinearLayout
                 android:id="@+id/v_xm_LinearLayout"
-                android:layout_width="75dp"
-                android:layout_height="75dp"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
                 android:layout_margin="1dp"
-                android:gravity="center"
+                android:layout_weight="1"
                 android:background="@drawable/edittext_background"
+                android:gravity="center"
                 android:orientation="vertical"
                 android:weightSum="1">
 
@@ -125,11 +127,12 @@
 
             <LinearLayout
                 android:id="@+id/v_xl_LinearLayout"
-                android:layout_width="75dp"
-                android:layout_height="75dp"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
                 android:layout_margin="1dp"
-                android:gravity="center"
+                android:layout_weight="1"
                 android:background="@drawable/edittext_background"
+                android:gravity="center"
                 android:orientation="vertical"
                 android:weightSum="1">
 
@@ -152,11 +155,12 @@
 
             <LinearLayout
                 android:id="@+id/v_x2l_LinearLayout"
-                android:layout_width="75dp"
-                android:layout_height="75dp"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
                 android:layout_margin="1dp"
-                android:gravity="center"
+                android:layout_weight="1"
                 android:background="@drawable/edittext_background"
+                android:gravity="center"
                 android:orientation="vertical"
                 android:weightSum="1">
 
@@ -180,63 +184,44 @@
 
         </LinearLayout>
 
-        <ImageView
-            android:id="@+id/v_ImageView"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginRight="8dp"
-            android:contentDescription="@string/v_iv"
-            android:padding="5dp"
-            android:scaleType="centerCrop"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout"
-            app:srcCompat="@drawable/ic_motorcycle" />
-
         <TextView
             android:id="@+id/v_cap_TextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginRight="8dp"
             android:fontFamily="@font/numans"
             android:text="@string/upto_30kgs"
             android:textSize="14sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/vehicles_category_TextView"
+            app:layout_constraintStart_toStartOf="@+id/vehicles_category_TextView"
             app:layout_constraintTop_toBottomOf="@+id/vehicles_category_TextView" />
 
         <Button
             android:id="@+id/proceed_Button"
-            android:layout_width="314dp"
-            android:layout_height="55dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginRight="8dp"
-            android:layout_marginBottom="24dp"
+            android:layout_width="0dp"
+            android:layout_height="45dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginLeft="24dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginRight="24dp"
+            android:layout_marginBottom="16dp"
             android:background="@drawable/button_background"
             android:fontFamily="@font/numans"
             android:text="@string/proceed"
             android:textSize="20sp"
+            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
         <LinearLayout
             android:id="@+id/linearLayout2"
-            android:layout_width="315dp"
+            android:layout_width="0dp"
             android:layout_height="45dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginRight="8dp"
-            android:layout_marginBottom="8dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginLeft="24dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginRight="24dp"
+            android:layout_marginBottom="4dp"
             android:gravity="center"
             android:orientation="horizontal"
             android:weightSum="2"
@@ -273,27 +258,24 @@
             android:id="@+id/v_dim_TextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginRight="8dp"
+            android:fontFamily="@font/numans"
             android:text="@string/l_15_w_15_h_15"
             android:textSize="12sp"
-            android:fontFamily="@font/numans"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/v_cap_TextView"
+            app:layout_constraintStart_toStartOf="@+id/v_cap_TextView"
             app:layout_constraintTop_toBottomOf="@+id/v_cap_TextView" />
 
         <TextView
             android:id="@+id/v_desc_TextView"
-            android:layout_width="315dp"
-            android:layout_height="45dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginRight="8dp"
-            android:gravity="center"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginLeft="24dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginRight="24dp"
             android:fontFamily="@font/numans"
+            android:gravity="center"
             android:text="@string/desc_xs"
             android:textSize="10sp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -305,28 +287,32 @@
             android:id="@+id/v_name_TextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
             android:fontFamily="@font/numans"
             android:text="@string/xs"
-            android:textSize="20sp"
+            android:textSize="30sp"
             android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="@+id/v_ImageView"
-            app:layout_constraintStart_toStartOf="@+id/v_ImageView"
-            app:layout_constraintTop_toBottomOf="@+id/v_ImageView" />
+            app:layout_constraintEnd_toEndOf="@+id/linearLayout"
+            app:layout_constraintStart_toStartOf="@+id/linearLayout"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
 
         <ProgressBar
             android:id="@+id/loc_progressBar"
             style="?android:attr/progressBarStyleHorizontal"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
             android:indeterminate="true"
-            app:layout_constraintEnd_toEndOf="@+id/constraintLayout"
-            app:layout_constraintStart_toStartOf="@+id/constraintLayout"
-            app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
+            app:layout_constraintBottom_toTopOf="@+id/constraintLayout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/vehicles_category_TextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
             android:fontFamily="@font/numans"
             android:text="Delivery Bikes"
             android:textStyle="bold"

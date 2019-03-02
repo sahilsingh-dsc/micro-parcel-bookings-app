@@ -86,5 +86,23 @@
     <string name="orders">Orders</string>
     <string name="payment">Payment</string>
     <string name="account">Account</string>
+    <string name="password">Password</string>
+    <string name="email_address">Email Address</string>
+    <string name="signup">Signup</string>
+    <string name="existing_user">Existing User</string>
+    <string name="new_user">New User</string>
+    <string name="forgot_password">Forgot Password</string>
+    <string name="select_user_type">Select User Type</string>
+    <string name="name">Name</string>
+    <string name="gst_number">GST Number</string>
+    <string name="what_you_generally_ship">What you generally ship</string>
+    <string name="how_frequently_you_ship">How frequently you ship</string>
+    <string name="submit_details">submit details</string>
+    <string name="personal">Personal</string>
+    <string name="business">Business</string>
+    <string name="biz">biz</string>
+    <string name="per">per</string>
+    <string name="select_dropoff_contact">Select Dropoff Contact</string>
+    <string name="select_pickoff_contact">Select Pickoff Contact</string>
 
 </resources>

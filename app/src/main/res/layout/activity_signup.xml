@@ -4,12 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/loginLayout"
-    tools:context=".Ui.LoginActivity">
-
+    tools:context=".Ui.SignupActivity">
 
     <ImageView
-        android:id="@+id/mp_logo_ImageView"
+        android:id="@+id/signup_mp_logo_ImageView"
         android:layout_width="300dp"
         android:layout_height="300dp"
         android:layout_marginStart="8dp"
@@ -24,7 +22,7 @@
         app:srcCompat="@drawable/microparcel_logo" />
 
     <EditText
-        android:id="@+id/customer_email_EditText"
+        android:id="@+id/signup_customer_email_EditText"
         android:layout_width="0dp"
         android:layout_height="50dp"
         android:layout_marginStart="24dp"
@@ -41,11 +39,11 @@
         android:inputType="textEmailAddress"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/mp_logo_ImageView"
+        app:layout_constraintTop_toBottomOf="@+id/signup_mp_logo_ImageView"
         tools:targetApi="o" />
 
     <EditText
-        android:id="@+id/customer_password_EditText"
+        android:id="@+id/signup_customer_password_EditText"
         android:layout_width="0dp"
         android:layout_height="50dp"
         android:layout_marginStart="24dp"
@@ -62,11 +60,11 @@
         android:inputType="textPassword"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/customer_email_EditText"
+        app:layout_constraintTop_toBottomOf="@+id/signup_customer_email_EditText"
         tools:targetApi="o" />
 
     <Button
-        android:id="@+id/login_Button"
+        android:id="@+id/signup_Button"
         android:layout_width="0dp"
         android:layout_height="50dp"
         android:layout_marginStart="24dp"
@@ -76,35 +74,24 @@
         android:layout_marginRight="24dp"
         android:background="@drawable/button_background"
         android:fontFamily="@font/numans"
-        android:text="@string/login"
+        android:text="@string/signup"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/customer_password_EditText" />
+        app:layout_constraintTop_toBottomOf="@+id/signup_customer_password_EditText" />
 
     <TextView
-        android:id="@+id/signup_act_TextView"
+        android:id="@+id/existing_user_Textview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="48dp"
         android:fontFamily="@font/numans"
-        android:text="@string/new_user"
+        android:text="@string/existing_user"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="@+id/forgot_pass_TextView"
-        app:layout_constraintStart_toStartOf="@+id/forgot_pass_TextView"
-        app:layout_constraintTop_toBottomOf="@+id/forgot_pass_TextView" />
+        app:layout_constraintEnd_toEndOf="@+id/signup_Button"
+        app:layout_constraintStart_toStartOf="@+id/signup_Button"
+        app:layout_constraintTop_toBottomOf="@+id/signup_Button" />
 
-    <TextView
-        android:id="@+id/forgot_pass_TextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:fontFamily="@font/numans"
-        android:text="@string/forgot_password"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="@+id/login_Button"
-        app:layout_constraintStart_toStartOf="@+id/login_Button"
-        app:layout_constraintTop_toBottomOf="@+id/login_Button" />
 
 </android.support.constraint.ConstraintLayout>

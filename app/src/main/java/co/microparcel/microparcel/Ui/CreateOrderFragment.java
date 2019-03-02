@@ -102,7 +102,6 @@ public class CreateOrderFragment extends Fragment {
         v_xm_LinearLayout = view.findViewById(R.id.v_xm_LinearLayout);
         v_xl_LinearLayout = view.findViewById(R.id.v_xl_LinearLayout);
         v_x2l_LinearLayout = view.findViewById(R.id.v_x2l_LinearLayout);
-        v_ImageView = view.findViewById(R.id.v_ImageView);
         v_name_TextView = view.findViewById(R.id.v_name_TextView);
         v_cap_TextView = view.findViewById(R.id.v_cap_TextView);
         v_dim_TextView = view.findViewById(R.id.v_dim_TextView);
@@ -206,7 +205,7 @@ public class CreateOrderFragment extends Fragment {
 
 
                 if (vehicle_type_switch.equals("0") && !(vehicle_switch == 1)){
-                    callNoVehicleType();
+                    Toast.makeText(getContext(), "Select vehicle body type.", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
@@ -242,7 +241,6 @@ public class CreateOrderFragment extends Fragment {
         v_xm_LinearLayout.setBackground(getResources().getDrawable(R.drawable.edittext_background));
         v_xl_LinearLayout.setBackground(getResources().getDrawable(R.drawable.edittext_background));
         v_x2l_LinearLayout.setBackground(getResources().getDrawable(R.drawable.edittext_background));
-        v_ImageView.setImageResource(R.drawable.ic_motorcycle);
         v_name_TextView.setText(getString(R.string.xs_veh));
         vehicles_category_TextView.setText(getString(R.string.del_bike));
         v_cap_TextView.setText(getString(R.string._15));
@@ -257,7 +255,6 @@ public class CreateOrderFragment extends Fragment {
         v_xm_LinearLayout.setBackground(getResources().getDrawable(R.drawable.button_background));
         v_xl_LinearLayout.setBackground(getResources().getDrawable(R.drawable.edittext_background));
         v_x2l_LinearLayout.setBackground(getResources().getDrawable(R.drawable.edittext_background));
-        v_ImageView.setImageResource(R.drawable.ic_truck);
         v_name_TextView.setText(getString(R.string.xm_veh));
         vehicles_category_TextView.setText(getString(R.string.ape));
         v_cap_TextView.setText(getString(R.string.up_500));
@@ -272,7 +269,6 @@ public class CreateOrderFragment extends Fragment {
         v_xm_LinearLayout.setBackground(getResources().getDrawable(R.drawable.edittext_background));
         v_xl_LinearLayout.setBackground(getResources().getDrawable(R.drawable.button_background));
         v_x2l_LinearLayout.setBackground(getResources().getDrawable(R.drawable.edittext_background));
-        v_ImageView.setImageResource(R.drawable.ic_truck);
         v_name_TextView.setText(getString(R.string.xl_veh));
         vehicles_category_TextView.setText(getString(R.string.ace));
         v_cap_TextView.setText(getString(R.string.up750));
@@ -287,7 +283,6 @@ public class CreateOrderFragment extends Fragment {
         v_xm_LinearLayout.setBackground(getResources().getDrawable(R.drawable.edittext_background));
         v_xl_LinearLayout.setBackground(getResources().getDrawable(R.drawable.edittext_background));
         v_x2l_LinearLayout.setBackground(getResources().getDrawable(R.drawable.button_background));
-        v_ImageView.setImageResource(R.drawable.ic_truck);
         v_name_TextView.setText(getString(R.string.x2l_veh));
         vehicles_category_TextView.setText(getString(R.string.dost));
         v_cap_TextView.setText(getString(R.string.up1500));
@@ -354,45 +349,6 @@ public class CreateOrderFragment extends Fragment {
         if (requestCode == REQUEST_CODE_PLACEPICKER && resultCode == RESULT_OK) {
             displaySelectedPlaceFromPlacePicker(data);
         }
-    }
-
-    private void callNoVehicleType(){
-
-        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-        builder.setMessage("You have not selected preferred vehicle body type, Would you still like to proceed.");
-        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-            }
-        });
-        builder.setPositiveButton("Proceed", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-
-                ProceedFragment pfData = new ProceedFragment ();
-                Bundle args = new Bundle();
-                args.putString("pickoff", pickup);
-                args.putString("dropoff", drop);
-                args.putInt("vehicle", vehicle_switch);
-                args.putString("vehicle_type", vehicle_type_switch);
-                args.putDouble("pickoff_lat", pickoff_lat);
-                args.putDouble("pickoff_lng", pickoff_lng);
-                args.putDouble("dropoff_lat", dropoff_lat);
-                args.putDouble("dropoff_lng", dropoff_lng);
-                pfData.setArguments(args);
-                FragmentManager fragmentManager = getFragmentManager();
-                assert fragmentManager != null;
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.add(R.id.fragmant_holder_FrameLayout, pfData);
-                fragmentTransaction.hide(CreateOrderFragment.this);
-                fragmentTransaction.addToBackStack(null);
-                fragmentTransaction.commit();
-
-            }
-        });
-        final AlertDialog dialog = builder.create();
-        dialog.show();
     }
 
 }
