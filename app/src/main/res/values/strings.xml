@@ -104,5 +104,25 @@
     <string name="per">per</string>
     <string name="select_dropoff_contact">Select Dropoff Contact</string>
     <string name="select_pickoff_contact">Select Pickoff Contact</string>
+    <string name="logout">Logout</string>
+    <string name="sahil_singh">Sahil Singh</string>
+    <string name="sahilsingh_indore_mail_com">sahilsingh.indore@mail.com</string>
+    <string name="_7389410182">7389410182</string>
+    <string name="verify_your_email_now">verify your email now</string>
+    <string name="personal_user">Personal User</string>
+    <string name="no_orders">No Orders</string>
+    <string name="forgot_password_t">Forgot Password ?</string>
+    <string name="email">Email</string>
+    <string name="button">Button</string>
+    <string name="reset_password">Reset Password</string>
+    <string name="get_otp">GET OTP</string>
+    <string name="verify_amp_login"><![CDATA[Verify & Login]]></string>
+    <string name="change_no">CHANGE no.</string>
+    <string name="resend_otp">RESEND OTP</string>
+    <string name="auto_verifying_otp">Auto verifying otp ...</string>
+    <string name="contact_us">Contact Us</string>
+    <string name="for_any_queries_or_help">For any queries or help</string>
+    <string name="call_us">call us</string>
+    <string name="mail_us_at_contact_microparcel_co">Mail us at contact@microparcel.co</string>
 
 </resources>

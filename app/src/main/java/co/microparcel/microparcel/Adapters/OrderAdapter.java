@@ -67,7 +67,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
         orderViewHolder.date_time_order_TextView.setText(od.getOd_date_time_of_order());
         orderViewHolder.service_type_TextView.setText(od.getOd_service_type());
         if (od.getOd_order_status().equals("3")){
-            orderViewHolder.order_status_TextView.setText("Driver Allotment Pending");
+            orderViewHolder.order_status_TextView.setText("Allotment Pending");
             orderViewHolder.order_status_TextView.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_local_shipping_black_24dp, 0, 0, 0);
         }
         if (od.getOd_order_status().equals("2")){

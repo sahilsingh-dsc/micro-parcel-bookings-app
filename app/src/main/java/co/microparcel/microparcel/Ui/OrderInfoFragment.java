@@ -54,6 +54,7 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 import co.microparcel.microparcel.R;
+import dmax.dialog.SpotsDialog;
 
 import static android.support.constraint.Constraints.TAG;
 import static co.microparcel.microparcel.Constants.MAPVIEW_BUNDLE_KEY;
@@ -74,6 +75,7 @@ public class OrderInfoFragment extends Fragment implements OnMapReadyCallback, D
     private String pickoff_address, dropoff_address;
     private TextView driver_rating_TextView, driver_name_TextView, vehicle_info_TextView, vehicle_no_info_TextView;
     private Button call_driver_Button, cancel_trip_Button;
+    android.app.AlertDialog loadingDialog;
 
 
     public OrderInfoFragment() {
@@ -135,10 +137,19 @@ public class OrderInfoFragment extends Fragment implements OnMapReadyCallback, D
             }
         });
 
+
+       loadingDialog  = new SpotsDialog.Builder().setContext(getContext())
+                .setTheme(R.style.loading)
+                .setMessage("Please Wait")
+                .setCancelable(false)
+                .build();
+
+
         DatabaseReference order_dataRef = FirebaseDatabase.getInstance().getReference("BOOKINGS_DATA");
         order_dataRef.child("ACTIVE_DATA").child(username).child(order_no).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                loadingDialog.show();
                 pickoff = (String) dataSnapshot.child("ad_pickoff_latlng").getValue();
                 dropoff = (String) dataSnapshot.child("ad_dropoff_latlng").getValue();
                 String[] pickoff_latlngList = pickoff.split(",");
@@ -252,6 +263,7 @@ public class OrderInfoFragment extends Fragment implements OnMapReadyCallback, D
                 .transportMode(TransportMode.DRIVING)
                 .alternativeRoute(true)
                 .execute(OrderInfoFragment.this);
+        loadingDialog.dismiss();
     }
 
 

@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -34,6 +35,7 @@ public class YourOrdersFragment extends Fragment {
     private RecyclerView.Adapter orderAdapter;
     private List<OrderData> orderData;
     private ProgressBar loading_orders_ProgressBar;
+    private TextView no_order_TextView;
 
     public YourOrdersFragment() {
     }
@@ -46,11 +48,15 @@ public class YourOrdersFragment extends Fragment {
         loading_orders_ProgressBar = view.findViewById(R.id.loading_orders_ProgressBar);
         loading_orders_ProgressBar.setVisibility(View.INVISIBLE);
 
+        no_order_TextView = view.findViewById(R.id.no_order_TextView);
+        no_order_TextView.setVisibility(View.INVISIBLE);
+
         orders_RecyclerView = view.findViewById(R.id.orders_RecyclerView);
 
         orders_RecyclerView = view.findViewById(R.id.orders_RecyclerView);
         orders_RecyclerView.hasFixedSize();
         orders_RecyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
+        orders_RecyclerView.setVisibility(View.INVISIBLE);
         orderData = new ArrayList<>();
         orderData.clear();
 
@@ -64,7 +70,7 @@ public class YourOrdersFragment extends Fragment {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
                 orderData.clear();
-                for (DataSnapshot orderSnap : dataSnapshot.getChildren()){
+                for (DataSnapshot orderSnap : dataSnapshot.getChildren()) {
 
                     String od_date_time_of_order, od_service_type, od_fare, od_order_status, od_order_no;
 
@@ -79,13 +85,15 @@ public class YourOrdersFragment extends Fragment {
                         OrderData od = new OrderData(od_date_time_of_order, od_service_type, od_fare, od_order_status, od_order_no);
                         orderData.add(od);
 
-                    }
 
+                    }
                 }
+
 
                 orderAdapter = new OrderAdapter(orderData,view.getContext());
                 orders_RecyclerView.setAdapter(orderAdapter);
                 loading_orders_ProgressBar.setVisibility(View.INVISIBLE);
+                orders_RecyclerView.setVisibility(View.VISIBLE);
                 orderAdapter.notifyDataSetChanged();
 
             }

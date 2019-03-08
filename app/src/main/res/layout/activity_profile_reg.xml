@@ -115,7 +115,7 @@
         android:importantForAutofill="no" tools:targetApi="o" />
 
     <EditText
-        android:id="@+id/mobile_no_EditText"
+        android:id="@+id/email_id_EditText"
         android:layout_width="0dp"
         android:layout_height="50dp"
         android:layout_marginStart="24dp"
@@ -127,12 +127,13 @@
         android:ems="10"
         android:fontFamily="@font/numans"
         android:gravity="center"
-        android:hint="@string/mobile_number"
-        android:inputType="phone"
+        android:hint="Email"
+        android:importantForAutofill="no"
+        android:inputType="textEmailAddress"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/name_EditText"
-        android:importantForAutofill="no" tools:targetApi="o" />
+        tools:targetApi="o" />
 
     <EditText
         android:id="@+id/gst_no_EditText"
@@ -151,7 +152,7 @@
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/mobile_no_EditText"
+        app:layout_constraintTop_toBottomOf="@+id/email_id_EditText"
         android:importantForAutofill="no" tools:targetApi="o" />
 
     <EditText
@@ -207,8 +208,8 @@
         android:background="@drawable/button_background"
         android:fontFamily="@font/numans"
         android:text="@string/submit_details"
-        android:textSize="20sp"
         android:textStyle="bold"
+        android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

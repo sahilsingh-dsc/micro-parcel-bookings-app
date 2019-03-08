@@ -21,11 +21,149 @@
             android:layout_marginBottom="24dp"
             android:background="@drawable/button_background"
             android:fontFamily="@font/numans"
-            android:text="Logout"
+            android:text="@string/logout"
             android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/customer_name_TextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginLeft="24dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:fontFamily="@font/numans"
+            android:gravity="center"
+            android:text="@string/sahil_singh"
+            android:textColor="@color/colorBlack"
+            android:textSize="25sp"
+            android:textStyle="bold"
+            android:visibility="invisible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/customer_mobile_no_Textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:visibility="invisible"
+            android:text="@string/sahilsingh_indore_mail_com"
+            android:drawablePadding="10dp"
+            android:gravity="center"
+            android:fontFamily="@font/numans"
+            app:layout_constraintStart_toStartOf="@+id/customer_name_TextView"
+            app:layout_constraintTop_toBottomOf="@+id/customer_name_TextView"
+            android:drawableEnd="@drawable/ic_check_circle_green"
+            android:drawableRight="@drawable/ic_check_circle_green" />
+
+        <TextView
+            android:id="@+id/customer_email_TextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/numans"
+            android:text="@string/_7389410182"
+            android:visibility="invisible"
+            app:layout_constraintStart_toStartOf="@+id/customer_mobile_no_Textview"
+            app:layout_constraintTop_toBottomOf="@+id/customer_mobile_no_Textview" />
+
+        <View
+            android:id="@+id/divider2"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="16dp"
+            android:background="?android:attr/listDivider"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/customer_gst_TextView" />
+
+        <TextView
+            android:id="@+id/customer_type_TextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/numans"
+            android:text="@string/personal_user"
+            android:visibility="invisible"
+            app:layout_constraintStart_toStartOf="@+id/customer_email_TextView"
+            app:layout_constraintTop_toBottomOf="@+id/customer_email_TextView" />
+
+        <TextView
+            android:id="@+id/customer_gst_TextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            app:layout_constraintStart_toStartOf="@+id/customer_type_TextView"
+            app:layout_constraintTop_toBottomOf="@+id/customer_type_TextView" />
+
+        <TextView
+            android:id="@+id/textView14"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginLeft="24dp"
+            android:layout_marginTop="16dp"
+            android:text="@string/contact_us"
+            android:fontFamily="@font/numans"
+            android:textColor="@color/colorBlack"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:gravity="center"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/divider2" />
+
+        <TextView
+            android:id="@+id/textView15"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/for_any_queries_or_help"
+            android:fontFamily="@font/numans"
+            app:layout_constraintStart_toStartOf="@+id/textView14"
+            app:layout_constraintTop_toBottomOf="@+id/textView14" />
+
+        <Button
+            android:id="@+id/call_us_Button"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginBottom="8dp"
+            android:background="@drawable/button_background"
+            android:text="@string/call_us"
+            android:fontFamily="@font/numans"
+            app:layout_constraintBottom_toBottomOf="@+id/textView15"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/textView14" />
+
+        <TextView
+            android:id="@+id/mail_us_TextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/numans"
+            android:textColor="@color/colorPrimaryDark"
+            android:text="@string/mail_us_at_contact_microparcel_co"
+            app:layout_constraintStart_toStartOf="@+id/textView15"
+            app:layout_constraintTop_toBottomOf="@+id/textView15" />
+
+        <View
+            android:id="@+id/divider3"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="16dp"
+            android:background="?android:attr/listDivider"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/mail_us_TextView" />
+
     </android.support.constraint.ConstraintLayout>
 </FrameLayout>

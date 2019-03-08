@@ -20,8 +20,8 @@ import co.microparcel.microparcel.R;
 public class ProfileRegActivity extends AppCompatActivity {
 
     private LinearLayout personal_LinearLayout, business_LinearLayout;
-    private EditText name_EditText, mobile_no_EditText, gst_no_EditText, what_you_ship_EditText, how_feq_ship_EditText;
-    private String cd_name, cd_mobile_no, cd_gst_no, cd_what_you_ship, cd_how_freq_you_ship;
+    private EditText name_EditText, email_id_EditText, gst_no_EditText, what_you_ship_EditText, how_feq_ship_EditText;
+    private String cd_name, cd_email_id, cd_gst_no, cd_what_you_ship, cd_how_freq_you_ship;
     private String cd_profile_switch;
 
     @Override
@@ -32,7 +32,7 @@ public class ProfileRegActivity extends AppCompatActivity {
         personal_LinearLayout = findViewById(R.id.personal_LinearLayout);
         business_LinearLayout = findViewById(R.id.business_LinearLayout);
         name_EditText = findViewById(R.id.name_EditText);
-        mobile_no_EditText = findViewById(R.id.mobile_no_EditText);
+        email_id_EditText = findViewById(R.id.email_id_EditText);
         gst_no_EditText = findViewById(R.id.gst_no_EditText);
         what_you_ship_EditText = findViewById(R.id.what_you_ship_EditText);
         how_feq_ship_EditText = findViewById(R.id.how_feq_ship_EditText);
@@ -61,15 +61,15 @@ public class ProfileRegActivity extends AppCompatActivity {
                 if (cd_profile_switch.equals("1")){
 
                     cd_name = name_EditText.getText().toString().trim();
-                    cd_mobile_no = mobile_no_EditText.getText().toString().trim();
+                    cd_email_id = email_id_EditText.getText().toString().trim();
 
                     if (cd_name.length() == 0){
                         Toast.makeText(ProfileRegActivity.this, "Please enter your name", Toast.LENGTH_SHORT).show();
                         return;
                     }
 
-                    if (cd_mobile_no.length() == 0 || cd_mobile_no.length() < 10 || cd_mobile_no.length() > 10){
-                        Toast.makeText(ProfileRegActivity.this, "Please enter your 10 digit mobile number", Toast.LENGTH_SHORT).show();
+                    if (cd_email_id.length() == 0){
+                        Toast.makeText(ProfileRegActivity.this, "Please enter your email address", Toast.LENGTH_SHORT).show();
                         return;
                     }
 
@@ -80,7 +80,7 @@ public class ProfileRegActivity extends AppCompatActivity {
                 if (cd_profile_switch.equals("2")){
 
                     cd_name = name_EditText.getText().toString().trim();
-                    cd_mobile_no = mobile_no_EditText.getText().toString().trim();
+                    cd_email_id = email_id_EditText.getText().toString().trim();
                     cd_gst_no = gst_no_EditText.getText().toString().trim();
                     cd_what_you_ship = what_you_ship_EditText.getText().toString().trim();
                     cd_how_freq_you_ship = how_feq_ship_EditText.getText().toString().trim();
@@ -90,11 +90,11 @@ public class ProfileRegActivity extends AppCompatActivity {
                         Toast.makeText(ProfileRegActivity.this, "Please enter your business name", Toast.LENGTH_SHORT).show();
                         return;
                     }
-
-                    if (cd_mobile_no.length() == 0 || cd_mobile_no.length() < 10 || cd_mobile_no.length() > 10){
-                        Toast.makeText(ProfileRegActivity.this, "Please enter your 10 digit mobile number", Toast.LENGTH_SHORT).show();
+                    if (cd_email_id.length() == 0){
+                        Toast.makeText(ProfileRegActivity.this, "Please enter your email address", Toast.LENGTH_SHORT).show();
                         return;
                     }
+
 
                     if (cd_gst_no.length() == 0){
                         Toast.makeText(ProfileRegActivity.this, "Please enter your business gst number", Toast.LENGTH_SHORT).show();
@@ -144,13 +144,13 @@ public class ProfileRegActivity extends AppCompatActivity {
         what_you_ship_EditText.setVisibility(View.VISIBLE);
         how_feq_ship_EditText.setVisibility(View.VISIBLE);
         name_EditText.setText("");
-        mobile_no_EditText.setText("");
+        email_id_EditText.setText("");
 
     }
 
     private void callSaveCustomerData(){
 
-        CustomerData customerData = new CustomerData(cd_profile_switch, cd_name, cd_mobile_no, cd_gst_no, cd_what_you_ship, cd_how_freq_you_ship);
+        CustomerData customerData = new CustomerData(cd_profile_switch, cd_name, cd_email_id, cd_gst_no, cd_what_you_ship, cd_how_freq_you_ship);
 
         FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         assert firebaseUser != null;

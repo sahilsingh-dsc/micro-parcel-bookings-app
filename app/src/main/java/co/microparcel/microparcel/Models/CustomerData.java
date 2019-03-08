@@ -1,16 +1,16 @@
 package co.microparcel.microparcel.Models;
 
 public class CustomerData {
-    String cd_profile_type, cd_name, cd_mobile_no, cd_gst_no, cd_what_you_ship, cd_how_freq_you_ship;
+    String cd_profile_type, cd_name, cd_email_id, cd_gst_no, cd_what_you_ship, cd_how_freq_you_ship;
 
     public CustomerData(){
 
     }
 
-    public CustomerData(String cd_profile_type, String cd_name, String cd_mobile_no, String cd_gst_no, String cd_what_you_ship, String cd_how_freq_you_ship) {
+    public CustomerData(String cd_profile_type, String cd_name, String cd_email_id, String cd_gst_no, String cd_what_you_ship, String cd_how_freq_you_ship) {
         this.cd_profile_type = cd_profile_type;
         this.cd_name = cd_name;
-        this.cd_mobile_no = cd_mobile_no;
+        this.cd_email_id = cd_email_id;
         this.cd_gst_no = cd_gst_no;
         this.cd_what_you_ship = cd_what_you_ship;
         this.cd_how_freq_you_ship = cd_how_freq_you_ship;
@@ -32,12 +32,12 @@ public class CustomerData {
         this.cd_name = cd_name;
     }
 
-    public String getCd_mobile_no() {
-        return cd_mobile_no;
+    public String getCd_email_id() {
+        return cd_email_id;
     }
 
-    public void setCd_mobile_no(String cd_mobile_no) {
-        this.cd_mobile_no = cd_mobile_no;
+    public void setCd_email_id(String cd_email_id) {
+        this.cd_email_id = cd_email_id;
     }
 
     public String getCd_gst_no() {
