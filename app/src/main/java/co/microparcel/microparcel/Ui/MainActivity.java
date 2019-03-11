@@ -31,9 +31,6 @@ import dmax.dialog.SpotsDialog;
 
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
 
-
-
-
     private android.app.AlertDialog loadingDialog;
 
     @Override
@@ -41,11 +38,9 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
-
         loadingDialog = new SpotsDialog.Builder().setContext(MainActivity.this)
                 .setTheme(R.style.loading)
-                .setMessage("SSL Handshaking")
+                .setMessage("Fetching Details")
                 .setCancelable(false)
                 .build();
         loadingDialog.show();

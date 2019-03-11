@@ -651,8 +651,8 @@ public class ProceedFragment extends Fragment {
                 dropoff_location = String.valueOf(dropoff_latlng);
 
                 String micro_parcel = "MP";
-                String doc_type = "ODR";
-                String gst_code_mp = "23";
+                String doc_type = "ODR-";
+                String gst_code_mp = "23-";
                 Date odr_date = new Date( );
                 SimpleDateFormat odr_simpleDateFormat = new SimpleDateFormat ("y");
                 int sequence = Integer.parseInt(child_no);
@@ -662,7 +662,7 @@ public class ProceedFragment extends Fragment {
                 DatabaseReference order_noRef = FirebaseDatabase.getInstance().getReference("APP_DATA");
                 order_noRef.child("VARIABLES").child("order_no").setValue(firebase_order_no);
 
-                mp_order_no = micro_parcel+doc_type+gst_code_mp+odr_simpleDateFormat.format(odr_date)+order_sequence;
+                mp_order_no = micro_parcel+doc_type+gst_code_mp+odr_simpleDateFormat.format(odr_date)+"-"+order_sequence;
 
                 DatabaseReference active_orderRef = FirebaseDatabase.getInstance().getReference("BOOKINGS_DATA");
                 ActiveData activeData = new ActiveData(ad_pickoff_address, ad_dropoff_address, ad_pickoff_contact_name, ad_pickoff_contact_mobile, ad_dropoff_contact_name, ad_dropoff_contact_mobile, ad_goodstoship, ad_fare, ad_km, mp_order_no,pickoff_location, dropoff_location, ad_vehicle, ad_vehicle_type, ad_loading, ad_unloading, ad_pod);
