@@ -184,7 +184,6 @@ public class LoginActivity extends AppCompatActivity {
                 mResendToken = token;
             }
         };
-
     }
 
 
@@ -211,7 +210,7 @@ public class LoginActivity extends AppCompatActivity {
             countDownTimer.cancel();
         }
 
-        CountDownTimer countDownTimer = new CountDownTimer(2 * 1000, 1000) {
+        CountDownTimer countDownTimer = new CountDownTimer(60 * 1000, 1000) {
             public void onTick(long millisUntilFinished) {
                 otp_countdown_TextView.setText(String.format("%s sec", String.valueOf(millisUntilFinished / 1000)));
             }

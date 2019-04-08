@@ -39,7 +39,7 @@
             android:layout_marginRight="8dp"
             android:fontFamily="@font/numans"
             android:gravity="center"
-            android:text="@string/sahil_singh"
+            android:text="@string/no_information"
             android:textColor="@color/colorBlack"
             android:textSize="25sp"
             android:textStyle="bold"
@@ -54,15 +54,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:visibility="invisible"
-            android:text="@string/sahilsingh_indore_mail_com"
-            android:drawablePadding="10dp"
-            android:gravity="center"
-            android:fontFamily="@font/numans"
-            app:layout_constraintStart_toStartOf="@+id/customer_name_TextView"
-            app:layout_constraintTop_toBottomOf="@+id/customer_name_TextView"
             android:drawableEnd="@drawable/ic_check_circle_green"
-            android:drawableRight="@drawable/ic_check_circle_green" />
+            android:drawableRight="@drawable/ic_check_circle_green"
+            android:drawablePadding="10dp"
+            android:fontFamily="@font/numans"
+            android:gravity="center"
+            android:visibility="invisible"
+            app:layout_constraintStart_toStartOf="@+id/customer_name_TextView"
+            app:layout_constraintTop_toBottomOf="@+id/customer_name_TextView" />
 
         <TextView
             android:id="@+id/customer_email_TextView"
@@ -70,7 +69,6 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:fontFamily="@font/numans"
-            android:text="@string/_7389410182"
             android:visibility="invisible"
             app:layout_constraintStart_toStartOf="@+id/customer_mobile_no_Textview"
             app:layout_constraintTop_toBottomOf="@+id/customer_mobile_no_Textview" />
@@ -84,7 +82,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/customer_gst_TextView" />
+            app:layout_constraintTop_toBottomOf="@+id/update_customer_Button" />
 
         <TextView
             android:id="@+id/customer_type_TextView"
@@ -92,7 +90,6 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:fontFamily="@font/numans"
-            android:text="@string/personal_user"
             android:visibility="invisible"
             app:layout_constraintStart_toStartOf="@+id/customer_email_TextView"
             app:layout_constraintTop_toBottomOf="@+id/customer_email_TextView" />
@@ -164,6 +161,21 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/mail_us_TextView" />
+
+        <Button
+            android:id="@+id/update_customer_Button"
+            android:layout_width="wrap_content"
+            android:layout_height="35dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginLeft="24dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/button_background"
+            android:paddingLeft="10dp"
+            android:fontFamily="@font/numans"
+            android:paddingRight="10dp"
+            android:text="@string/update_profile"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/customer_gst_TextView" />
 
     </android.support.constraint.ConstraintLayout>
 </FrameLayout>

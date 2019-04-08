@@ -3,15 +3,12 @@ package co.microparcel.microparcel.Ui;
 
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,8 +16,6 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -28,25 +23,22 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.database.collection.LLRBNode;
 
 import java.util.Objects;
 
 import co.microparcel.microparcel.R;
 
-import static android.support.constraint.Constraints.TAG;
-
 public class MoreFragment extends Fragment {
 
     View view;
-    private Button logout_Button, call_us_Button;
+    private Button logout_Button, call_us_Button, update_customer_Button;
     private TextView customer_name_TextView, customer_email_TextView, customer_mobile_no_TextView, customer_type_TextView, mail_us_TextView, customer_gst_TextView;
     public MoreFragment() {
     }
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view =  inflater.inflate(R.layout.fragment_more, container, false);
 
         logout_Button = view.findViewById(R.id.logout_Button);
@@ -82,6 +74,14 @@ public class MoreFragment extends Fragment {
             }
         });
 
+        update_customer_Button = view.findViewById(R.id.update_customer_Button);
+        update_customer_Button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getActivity(), ProfileRegActivity.class));
+            }
+        });
+
         callCustomerDetails();
 
         return view;
@@ -92,6 +92,7 @@ public class MoreFragment extends Fragment {
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT) {
             builder = new AlertDialog.Builder(Objects.requireNonNull(getContext()));
         }
+        assert builder != null;
         builder.setMessage("Are you sure, you want to logout ?");
         builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
             @Override
@@ -119,48 +120,57 @@ public class MoreFragment extends Fragment {
         String mobilenumber = firebaseUser.getPhoneNumber();
         customer_mobile_no_TextView.setText(mobilenumber);
 
-        DatabaseReference customerRef = FirebaseDatabase.getInstance().getReference("COLLECTION");
-        customerRef.child("CUSTOMERS").child(username).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                String customer_type = null;
-                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT) {
-                    customer_type = Objects.requireNonNull(dataSnapshot.child("cd_profile_type").getValue()).toString();
+            DatabaseReference customerRef = FirebaseDatabase.getInstance().getReference("COLLECTION");
+            customerRef.child("CUSTOMERS").child(username).addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                    String customer_type = null;
+                    try {
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                            customer_type = Objects.requireNonNull(dataSnapshot.child("cd_profile_type").getValue()).toString();
 
 
-                    if (customer_type.equals("1")) {
-                        String name = Objects.requireNonNull(dataSnapshot.child("cd_name").getValue()).toString();
-                        String email = Objects.requireNonNull(dataSnapshot.child("cd_email_id").getValue()).toString();
-                        customer_type_TextView.setText("Personal User");
-                        customer_name_TextView.setText(name);
-                        customer_email_TextView.setText(email);
-                                            }
+                            if (customer_type.equals("1")) {
+                                String name = Objects.requireNonNull(dataSnapshot.child("cd_name").getValue()).toString();
+                                String email = Objects.requireNonNull(dataSnapshot.child("cd_email_id").getValue()).toString();
+                                customer_type_TextView.setText("Personal User");
+                                customer_name_TextView.setText(name);
+                                customer_email_TextView.setText(email);
+                                                    }
 
-                    if (customer_type.equals("2")) {
-                        String name = Objects.requireNonNull(dataSnapshot.child("cd_name").getValue()).toString();
-                        String email = Objects.requireNonNull(dataSnapshot.child("cd_email_id").getValue()).toString();
-                        String gst_no = Objects.requireNonNull(dataSnapshot.child("cd_gst_no").getValue()).toString();
-                        customer_type_TextView.setText("Business User");
-                        customer_name_TextView.setText(name);
-                        customer_email_TextView.setText(email);
-                        customer_gst_TextView.setText(String.format("GSTIN %s", gst_no));
+                            if (customer_type.equals("2")) {
+                                String name = Objects.requireNonNull(dataSnapshot.child("cd_name").getValue()).toString();
+                                String email = Objects.requireNonNull(dataSnapshot.child("cd_email_id").getValue()).toString();
+                                String gst_no = Objects.requireNonNull(dataSnapshot.child("cd_gst_no").getValue()).toString();
+                                customer_type_TextView.setText("Business User");
+                                customer_name_TextView.setText(name);
+                                customer_email_TextView.setText(email);
+                                customer_gst_TextView.setText(String.format("GSTIN %s", gst_no));
+
+                            }
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        Toast.makeText(getContext(), "Data not found", Toast.LENGTH_SHORT).show();
 
                     }
+
+                    customer_type_TextView.setVisibility(View.VISIBLE);
+                    customer_mobile_no_TextView.setVisibility(View.VISIBLE);
+                    customer_name_TextView.setVisibility(View.VISIBLE);
+                    customer_email_TextView.setVisibility(View.VISIBLE);
+
                 }
 
-                customer_type_TextView.setVisibility(View.VISIBLE);
-                customer_mobile_no_TextView.setVisibility(View.VISIBLE);
-                customer_name_TextView.setVisibility(View.VISIBLE);
-                customer_email_TextView.setVisibility(View.VISIBLE);
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
 
-            }
+                }
+            });
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
+        }
     }
 
-}
+

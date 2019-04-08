@@ -124,5 +124,7 @@
     <string name="for_any_queries_or_help">For any queries or help</string>
     <string name="call_us">call us</string>
     <string name="mail_us_at_contact_microparcel_co">Mail us at contact@microparcel.co</string>
+    <string name="no_information">No Information</string>
+    <string name="update_profile">Update Profile</string>
 
 </resources>

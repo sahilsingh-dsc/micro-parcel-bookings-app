@@ -8,105 +8,17 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:806356977071:android:b7642ba610e6047d",
+        "mobilesdk_app_id": "1:806356977071:android:bd2eb341d24b656e",
         "android_client_info": {
-          "package_name": "co.microparcel.deliveryagent"
+          "package_name": "co.microparcel.driver"
         }
       },
       "oauth_client": [
         {
-          "client_id": "806356977071-mq7qbfmkpotlankghe8cnpi2t1us32ep.apps.googleusercontent.com",
+          "client_id": "806356977071-kio1ascntcchhh4jof7t3ra5o30mkd4d.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "co.microparcel.deliveryagent",
-            "certificate_hash": "764735ec16bf4da109d33eab65dc7b67d13a7441"
-          }
-        },
-        {
-          "client_id": "806356977071-lni0qee25gvhg7h8qpc4gmr3uhmvfhhh.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyC4FGTUjQVHTH3dlLvRmHNsdAVijYgkft4"
-        }
-      ],
-      "services": {
-        "analytics_service": {
-          "status": 1
-        },
-        "appinvite_service": {
-          "status": 2,
-          "other_platform_oauth_client": [
-            {
-              "client_id": "806356977071-722j9tfg2gt2424pcomvu7f5gqcs8929.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
-        },
-        "ads_service": {
-          "status": 2
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:806356977071:android:a45286a48ac0aca2",
-        "android_client_info": {
-          "package_name": "co.microparcel.deliverypartner"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "806356977071-0di49917gkuqhaqvpu2ptsqi1ll5mmv5.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "co.microparcel.deliverypartner",
-            "certificate_hash": "764735ec16bf4da109d33eab65dc7b67d13a7441"
-          }
-        },
-        {
-          "client_id": "806356977071-lni0qee25gvhg7h8qpc4gmr3uhmvfhhh.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyC4FGTUjQVHTH3dlLvRmHNsdAVijYgkft4"
-        }
-      ],
-      "services": {
-        "analytics_service": {
-          "status": 1
-        },
-        "appinvite_service": {
-          "status": 2,
-          "other_platform_oauth_client": [
-            {
-              "client_id": "806356977071-722j9tfg2gt2424pcomvu7f5gqcs8929.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
-        },
-        "ads_service": {
-          "status": 2
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:806356977071:android:945db1d1349db542",
-        "android_client_info": {
-          "package_name": "co.microparcel.deliverypilot"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "806356977071-tqvcl49h8vk5092is5njarjgjbu1b2bq.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "co.microparcel.deliverypilot",
+            "package_name": "co.microparcel.driver",
             "certificate_hash": "764735ec16bf4da109d33eab65dc7b67d13a7441"
           }
         },
@@ -184,58 +96,6 @@
     },
     {
       "client_info": {
-        "mobilesdk_app_id": "1:806356977071:android:5e78764b9de7074e",
-        "android_client_info": {
-          "package_name": "co.microparcel.mp_bookings"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "806356977071-ahfikhgar32cmii13cufd4m9soiv26d5.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "co.microparcel.mp_bookings",
-            "certificate_hash": "764735ec16bf4da109d33eab65dc7b67d13a7441"
-          }
-        },
-        {
-          "client_id": "806356977071-t8shetd8hjtm59oo9oqkoqnctbhqu045.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "co.microparcel.mp_bookings",
-            "certificate_hash": "bde6b24456b686af7d58e234df33eebfcb3686c1"
-          }
-        },
-        {
-          "client_id": "806356977071-lni0qee25gvhg7h8qpc4gmr3uhmvfhhh.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyC4FGTUjQVHTH3dlLvRmHNsdAVijYgkft4"
-        }
-      ],
-      "services": {
-        "analytics_service": {
-          "status": 1
-        },
-        "appinvite_service": {
-          "status": 2,
-          "other_platform_oauth_client": [
-            {
-              "client_id": "806356977071-722j9tfg2gt2424pcomvu7f5gqcs8929.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
-        },
-        "ads_service": {
-          "status": 2
-        }
-      }
-    },
-    {
-      "client_info": {
         "mobilesdk_app_id": "1:806356977071:android:7d8f39c0f5a50c39",
         "android_client_info": {
           "package_name": "co.microparcel.mpbase"
@@ -280,17 +140,48 @@
     },
     {
       "client_info": {
-        "mobilesdk_app_id": "1:806356977071:android:bc81168558755915",
+        "mobilesdk_app_id": "1:806356977071:android:701eb7866444c1cb",
         "android_client_info": {
-          "package_name": "co.microparcel.pds"
+          "package_name": "com.hypertrack.uber_driver"
         }
       },
       "oauth_client": [
         {
-          "client_id": "806356977071-ok9aoemj3cdr5hvptht41t4pogn0qnkn.apps.googleusercontent.com",
+          "client_id": "806356977071-lni0qee25gvhg7h8qpc4gmr3uhmvfhhh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC4FGTUjQVHTH3dlLvRmHNsdAVijYgkft4"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:806356977071:android:b1322be73db56683",
+        "android_client_info": {
+          "package_name": "govirtual360.numberverify"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "806356977071-nerru8p2ktr8fvo2gmirjn10jnsmj1k2.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "co.microparcel.pds",
+            "package_name": "govirtual360.numberverify",
             "certificate_hash": "764735ec16bf4da109d33eab65dc7b67d13a7441"
           }
         },

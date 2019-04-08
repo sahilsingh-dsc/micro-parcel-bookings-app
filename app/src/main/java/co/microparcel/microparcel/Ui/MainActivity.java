@@ -67,7 +67,8 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                             BottomNavigationView bottom_nav_Bar;
                             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
                                 bottom_nav_Bar = MainActivity.this.findViewById(R.id.bottom_nav_Bar);
-                                bottom_nav_Bar.setSelectedItemId(R.id.orders_item);
+
+
                                 loadingDialog.dismiss();
                             }
                             loadingDialog.dismiss();
